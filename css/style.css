@@ -26,6 +26,12 @@ a:visited {
 }
 
 /* LAYOUT */
+.recipesContainer img {
+  width: 380px;
+  height: 253px;
+  object-fit: cover;
+}
+
 /* PAGES */
 /* INDEX */
 
