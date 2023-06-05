@@ -1,1 +1,14 @@
 /* INDEX */
+/* BODY */
+/* MAIN */
+main {
+    padding: 50px 102px 102px 102px;
+    background-color: $bg-color;
+}
+
+.recipesContainer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 66px 48px;
+}
