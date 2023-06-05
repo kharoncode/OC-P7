@@ -2,9 +2,6 @@
 /* Font */
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap");
 /* Color */
-/* Size */
-/* $mq-tablette: 992px;
-$mq-phone: 650px; */
 /* BASE */
 * {
   box-sizing: border-box;
@@ -28,6 +25,7 @@ a:visited {
   color: initial;
 }
 
+/* LAYOUT */
 /* PAGES */
 /* INDEX */
 
