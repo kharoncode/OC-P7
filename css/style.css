@@ -92,6 +92,73 @@ a:visited {
 /* PAGES */
 /* INDEX */
 /* BODY */
+body {
+  padding: 0 20px 0 20px;
+}
+
+/* HEADER */
+header {
+  position: relative;
+  height: 667px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/assets/images/lampos-aritonang.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header h1 {
+  position: absolute;
+  top: 50px;
+  left: 69px;
+  font-family: "Anton", sans-serif;
+  font-size: 2em;
+  color: #fff;
+  text-transform: uppercase;
+}
+header p {
+  display: flex;
+  text-align: center;
+  width: 700px;
+  padding-bottom: 30px;
+  font-family: "Anton", sans-serif;
+  font-size: 2.75em;
+  color: #FFD15B;
+  text-transform: uppercase;
+}
+header nav {
+  position: relative;
+}
+header nav input {
+  padding-left: 35px;
+  width: 954px;
+  height: 72px;
+  border-radius: 11px;
+  border: 0px;
+}
+header nav button {
+  position: absolute;
+  background: #1B1B1B;
+  border-radius: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: 0px;
+  right: 10px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header nav button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(259deg) brightness(108%) contrast(100%);
+}
+
 /* MAIN */
 main {
   padding: 50px 102px 102px 102px;

@@ -1,7 +1,7 @@
 // DOM Elements
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
-export function getRecipe(recipes){
+export function getRecipeCard(recipes){
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
         const recipeCard = document.createElement('section');
