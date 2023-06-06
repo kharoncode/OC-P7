@@ -13,11 +13,11 @@
             <img src="assets/logo/les_petits_plats_logo.svg" alt="Les petits plats" class="logo">
             <p class="header-info">Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</p>
             <nav>
-                <input class="recipe-search" type="search" placeholder="Rechercher une recette, un ingrédient, ...">
+                <input id="search" class="recipe-search" type="search" placeholder="Rechercher une recette, un ingrédient, ...">
                 <button>
                     <img src="assets/icones/magnifying-glass-solid.svg" alt="Search">
                 </button>
-                <img src="assets/icones/erase.svg" alt="Effacer" class="erase--header">
+                <img id="searchErase" src="assets/icones/erase.svg" alt="Effacer" class="erase--header">
             </nav>
         </header>
         <main>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="btn-select-search">
                             <input id="ingredients" type="search" class="select-search--input">
-                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img id="ingredientsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
                             <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
                         </div>
                         <ul class="btn-select-list ingredients-select--list"></ul>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="btn-select-search">
                             <input id="appareils" type="search" class="select-search--input">
-                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img id="appareilsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
                             <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
                         </div>
                         <ul class="btn-select-list appareils-select--list"></ul>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="btn-select-search">
                             <input id="ustensiles" type="search" class="select-search--input">
-                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img id="ustensilesErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
                             <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
                         </div>
                         <ul class="btn-select-list ustensiles-select--list"></ul>

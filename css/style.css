@@ -264,7 +264,7 @@ header nav button:hover {
   transition-duration: 0.3s;
 }
 header nav button:hover img {
-  filter: invert(0%) sepia(100%) saturate(7461%) hue-rotate(171deg) brightness(105%) contrast(108%);
+  filter: invert(7%) sepia(0%) saturate(4%) hue-rotate(76deg) brightness(107%) contrast(95%);
   transition-duration: 0.3s;
 }
 header nav button img {

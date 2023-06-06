@@ -30,7 +30,7 @@ header {
         font-family: $titre-font;
         font-size: 3em;
         line-height: 1.5em;
-        color: $color-tag;
+        color: $color-quaternary;
         text-transform: uppercase;
     }
 
@@ -70,11 +70,11 @@ header {
             transition-duration: 0.3s;
 
             &:hover{
-                background-color: $color-tag;
+                background-color: $color-quaternary;
                 transition-duration: 0.3s;
 
                 & img{
-                    filter: invert(0%) sepia(100%) saturate(7461%) hue-rotate(171deg) brightness(105%) contrast(108%);
+                    filter: $filter-primary;
                     transition-duration: 0.3s;
                 }
             }
@@ -82,7 +82,7 @@ header {
             & img{
                 width: 20px;
                 height: 20px;
-                filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(259deg) brightness(108%) contrast(100%);
+                filter: $filter-white;
                 transition-duration: 0.3s;
             }
         }
@@ -101,7 +101,7 @@ header {
 /* MAIN */
 main {
     padding: 50px 102px 102px 102px;
-    background-color: $bg-color;
+    background-color: $color-tertiary;
     display: flex;
     flex-direction: column;
     justify-content: center;

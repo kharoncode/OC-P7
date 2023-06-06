@@ -61,7 +61,7 @@
                     height: 13px;
                     width: 13px;
                     right: 5px;
-                    filter: invert(100%) sepia(0%) saturate(3816%) hue-rotate(112deg) brightness(114%) contrast(55%);
+                    filter: $filter-tertiacry;
                 }
             }
         }
@@ -78,7 +78,7 @@
                     text-transform: capitalize;
                 }
                 &:focus, &:hover{
-                    background-color: $color-tag;
+                    background-color: $color-quaternary;
                 }
             }
         }
@@ -87,7 +87,7 @@
     &-tag{
         padding: 17px 16px 17px 16px;
         height: 53px;
-        background-color: $color-tag;
+        background-color: $color-quaternary;
         & p{
             display: flex;
             align-items: center;
