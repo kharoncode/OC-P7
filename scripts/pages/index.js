@@ -36,23 +36,23 @@ function initSelect(ustensilsList, ingredientsList, applianceList){
     const ustensilesItems_elts = document.querySelectorAll('.ustensil-item');
     ingredientsInput_elt.addEventListener('keyup', (e)=>{
         displayErase(ingredientsInputErase_elt, e.target)
-        console.log(showResultSelect(e.target.value, ingredientsList, ingredientsItems_elts))
+        showResultSelect(e.target.value, ingredientsList, ingredientsItems_elts);
     });
     appareilsInput_elt.addEventListener('keyup', (e)=>{
         displayErase(appareilsInputErase_elt, e.target)
-        console.log(showResultSelect(e.target.value, applianceList, appareilsItems_elts))
+        showResultSelect(e.target.value, applianceList, appareilsItems_elts);
     });
     ustensilesInput_elt.addEventListener('keyup', (e)=>{
         displayErase(ustensilesInputErase_elt, e.target)
-        console.log(showResultSelect(e.target.value, ustensilsList, ustensilesItems_elts))
+        showResultSelect(e.target.value, ustensilsList, ustensilesItems_elts);
     });
 }
 
 
 
 function init(){
-    const {ustensilsList, ingredientsList, applianceList} = getRecipeCard(recipes);
-    const data = [...new Set(ustensilsList),... new Set(ingredientsList),...new Set(applianceList)];
+    const {ustensilsList, ingredientsList, applianceList, titleList} = getRecipeCard(recipes);
+    const data = [...new Set(ustensilsList),... new Set(ingredientsList),...new Set(applianceList),...new Set(titleList)];
     recetteCount();
     initSelect(ustensilsList, ingredientsList, applianceList);
     initSearch(data);

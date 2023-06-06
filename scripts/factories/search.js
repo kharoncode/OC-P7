@@ -1,4 +1,5 @@
 export function showResultSelect(value, data, items){
+    value=value.toLowerCase();
     if(value.length>2){
         for(let i=0; i<data.length; i++){
             if(data[i].includes(value)){
@@ -16,6 +17,7 @@ export function showResultSelect(value, data, items){
 }
 
 export function showResultSearch(value, data){
+    value=value.toLowerCase();
     if(value.length>2){
         for(let i=0; i<data.length; i++){
             if(data[i].includes(value)){

@@ -5,12 +5,14 @@ export function getRecipeCard(recipes){
     let ustensilsList = [];
     let ingredientsList = [];
     let applianceList = [];
+    let titleList =[];
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
         for(const data in ustensils){
             ustensilsList.push(ustensils[data].toLowerCase());
         }
         applianceList.push(appliance.toLowerCase());
+        titleList.push(name.toLowerCase())
 
         const recipeCard = document.createElement('section');
         recipeCard.classList = "recipeCard"
@@ -69,7 +71,7 @@ export function getRecipeCard(recipes){
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
-    return{ustensilsList, ingredientsList, applianceList};
+    return{ustensilsList, ingredientsList, applianceList, titleList};
 }
 
 export function recetteCount(){
