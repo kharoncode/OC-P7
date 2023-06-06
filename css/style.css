@@ -92,13 +92,10 @@ a:visited {
 /* PAGES */
 /* INDEX */
 /* BODY */
-body {
-  padding: 0 20px 0 20px;
-}
-
 /* HEADER */
 header {
   position: relative;
+  width: 100%;
   height: 667px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/assets/images/lampos-aritonang.jpg");
   background-position: center;
@@ -130,13 +127,22 @@ header p {
 }
 header nav {
   position: relative;
+  width: 75%;
+  display: flex;
+  justify-content: center;
 }
 header nav input {
   padding-left: 35px;
-  width: 954px;
+  width: 100%;
   height: 72px;
   border-radius: 11px;
   border: 0px;
+}
+header nav input:focus {
+  outline: none;
+}
+header nav input:focus::placeholder {
+  color: transparent;
 }
 header nav button {
   position: absolute;
@@ -152,11 +158,21 @@ header nav button {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition-duration: 0.3s;
+}
+header nav button:hover {
+  background-color: #FFD15B;
+  transition-duration: 0.3s;
+}
+header nav button:hover img {
+  filter: invert(0%) sepia(100%) saturate(7461%) hue-rotate(171deg) brightness(105%) contrast(108%);
+  transition-duration: 0.3s;
 }
 header nav button img {
   width: 20px;
   height: 20px;
   filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(259deg) brightness(108%) contrast(100%);
+  transition-duration: 0.3s;
 }
 
 /* MAIN */
