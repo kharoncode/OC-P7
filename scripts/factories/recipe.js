@@ -8,9 +8,9 @@ export function getRecipeCard(recipes){
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
         for(const data in ustensils){
-            ustensilsList.push(ustensils[data]);
+            ustensilsList.push(ustensils[data].toLowerCase());
         }
-        applianceList.push(appliance);
+        applianceList.push(appliance.toLowerCase());
 
         const recipeCard = document.createElement('section');
         recipeCard.classList = "recipeCard"
@@ -45,7 +45,7 @@ export function getRecipeCard(recipes){
         ingredientListe.classList = "recipeCard-info_ingredients--liste";
         for(const data in ingredients){
             const {ingredient, quantity, unit} = ingredients[data];
-            ingredientsList.push(ingredient);
+            ingredientsList.push(ingredient.toLowerCase());
             const div = document.createElement('div');
             div.classList = "recipeCard-info_ingredients--liste-ingredient"
             div.innerHTML = `<h5>${ingredient}</h5>
