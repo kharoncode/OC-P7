@@ -71,3 +71,13 @@ export function getRecipeCard(recipes){
 
     return{ustensilsList, ingredientsList, applianceList};
 }
+
+export function recetteCount(){
+    const recipeCard_elts = document.querySelectorAll(".recipeCard");
+    const recipeCount_elt = document.querySelector(".recipe-filter--result");
+    if(recipeCard_elts.length<2){
+        recipeCount_elt.textContent=`${recipeCard_elts.length} recette`
+    }else{
+        recipeCount_elt.textContent=`${recipeCard_elts.length} recettes`
+    }
+}

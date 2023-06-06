@@ -1,5 +1,5 @@
 import { recipes } from "../utils/recipes.js";
-import { getRecipeCard } from "../factories/recipe.js";
+import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { getSelectList } from "../factories/select.js";
 import { displayErase } from "../factories/erase.js";
 import { showResultSelect, showResultSearch } from "../factories/search.js";
@@ -53,6 +53,7 @@ function initSelect(ustensilsList, ingredientsList, applianceList){
 function init(){
     const {ustensilsList, ingredientsList, applianceList} = getRecipeCard(recipes);
     const data = [...new Set(ustensilsList),... new Set(ingredientsList),...new Set(applianceList)];
+    recetteCount();
     initSelect(ustensilsList, ingredientsList, applianceList);
     initSearch(data);
 }

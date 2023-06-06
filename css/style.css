@@ -303,6 +303,10 @@ main {
   width: 100%;
   max-width: 750px;
 }
+.recipe-filter--result {
+  font-size: 1.3em;
+  font-family: "Anton", sans-serif;
+}
 
 .recipe-tags {
   display: flex;
