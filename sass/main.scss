@@ -4,8 +4,9 @@
 /* BASE */
 @import "./base/general";
 
-/* LAYOUT */
-@import "./layout/recipe";
+/* COMPOSANTS */
+@import "./composants/recipeCard";
+@import "./composants/recipeButton";
 
 /* PAGES */
 @import "./pages/index";

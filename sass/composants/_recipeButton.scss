@@ -1,0 +1,98 @@
+.btn{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    &-select{
+        padding: 17px 0 17px 0;
+        width: 195px;
+        height: 53px;
+        background-color: #fff;
+        margin-right: 30px;
+        flex-direction: column;
+        overflow: hidden;
+        transition-duration: 0.3s;
+        &:hover, &:focus{
+            height: 324px;
+            transition-duration: 0.3s;
+            &>div.btn-select-titre img{
+                transform: rotateX(180deg);
+                transition-duration: 0.3s;
+            }
+        }
+        &-titre{
+            display: flex;
+            align-items: center;
+            padding-bottom: 14px;
+            & p{
+                padding-right: 60px;
+            }
+            & img{
+                width: 13px;
+                height: 6px;
+                transition-duration: 0.3s;
+            }
+        }
+
+        &-search{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            & input{
+                height: 36px;
+                width: 163px;
+                padding-left: 8px;
+                border: 1px solid #C6C6C6;
+                &:focus{
+                    outline: none;
+                }
+            }
+            & img{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto 0;
+                &.select-search--erase{
+                    display: none;
+                    height: 8px;
+                    width: 8px;
+                    right: 23px;
+                }
+                &.select-search--glass{
+                    height: 13px;
+                    width: 13px;
+                    right: 5px;
+                    filter: invert(100%) sepia(0%) saturate(3816%) hue-rotate(112deg) brightness(114%) contrast(55%);
+                }
+            }
+        }
+
+        &-list{
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            overflow-y: scroll;
+            & li{
+                padding: 7px 16px 7px 16px; 
+                &::first-letter{
+                    text-transform: capitalize;
+                }
+                &:focus, &:hover{
+                    background-color: $color-tag;
+                }
+            }
+        }
+    }
+
+    &-tag{
+        padding: 17px 16px 17px 16px;
+        height: 53px;
+        background-color: $color-tag;
+        & p{
+            display: flex;
+            align-items: center;
+            padding-right: 60px;
+        }
+    }
+}
+

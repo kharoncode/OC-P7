@@ -2,8 +2,16 @@
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
 export function getRecipeCard(recipes){
+    let ustensilsList = [];
+    let ingredientsList = [];
+    let applianceList = [];
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
+        for(const data in ustensils){
+            ustensilsList.push(ustensils[data]);
+        }
+        applianceList.push(appliance);
+
         const recipeCard = document.createElement('section');
         recipeCard.classList = "recipeCard"
         recipeCard.setAttribute("id", `recette-${id}`);
@@ -37,10 +45,11 @@ export function getRecipeCard(recipes){
         ingredientListe.classList = "recipeCard-info_ingredients--liste";
         for(const data in ingredients){
             const {ingredient, quantity, unit} = ingredients[data];
+            ingredientsList.push(ingredient);
             const div = document.createElement('div');
             div.classList = "recipeCard-info_ingredients--liste-ingredient"
             div.innerHTML = `<h5>${ingredient}</h5>
-                            <p>${quantity??""} ${unit??""}</p>`
+                            <p>${quantity??"-"} ${unit??""}</p>`
             ingredientListe.appendChild(div);
         }
         // Time
@@ -56,4 +65,9 @@ export function getRecipeCard(recipes){
         info.appendChild(ingredientsContainer);
         ingredientsContainer.appendChild(ingredientListe);
     }
+    ustensilsList=[...new Set(ustensilsList)].sort((a,b)=>{return a.localeCompare(b);});
+    ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
+    applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
+
+    return{ustensilsList, ingredientsList, applianceList};
 }

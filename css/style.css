@@ -25,7 +25,11 @@ a:visited {
   color: initial;
 }
 
-/* LAYOUT */
+ul {
+  list-style-type: none;
+}
+
+/* COMPOSANTS */
 .recipeCard {
   position: relative;
   display: flex;
@@ -74,7 +78,7 @@ a:visited {
   font-weight: 500;
 }
 .recipeCard-info_description p {
-  height: 80px;
+  height: 65px;
   overflow: hidden;
 }
 .recipeCard-info_ingredients--liste {
@@ -87,6 +91,101 @@ a:visited {
 }
 .recipeCard-info_ingredients--liste-ingredient p {
   color: #7A7A7A;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+.btn-select {
+  padding: 17px 0 17px 0;
+  width: 195px;
+  height: 53px;
+  background-color: #fff;
+  margin-right: 30px;
+  flex-direction: column;
+  overflow: hidden;
+  transition-duration: 0.3s;
+}
+.btn-select:hover, .btn-select:focus {
+  height: 324px;
+  transition-duration: 0.3s;
+}
+.btn-select:hover > div.btn-select-titre img, .btn-select:focus > div.btn-select-titre img {
+  transform: rotateX(180deg);
+  transition-duration: 0.3s;
+}
+.btn-select-titre {
+  display: flex;
+  align-items: center;
+  padding-bottom: 14px;
+}
+.btn-select-titre p {
+  padding-right: 60px;
+}
+.btn-select-titre img {
+  width: 13px;
+  height: 6px;
+  transition-duration: 0.3s;
+}
+.btn-select-search {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.btn-select-search input {
+  height: 36px;
+  width: 163px;
+  padding-left: 8px;
+  border: 1px solid #C6C6C6;
+}
+.btn-select-search input:focus {
+  outline: none;
+}
+.btn-select-search img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+.btn-select-search img.select-search--erase {
+  display: none;
+  height: 8px;
+  width: 8px;
+  right: 23px;
+}
+.btn-select-search img.select-search--glass {
+  height: 13px;
+  width: 13px;
+  right: 5px;
+  filter: invert(100%) sepia(0%) saturate(3816%) hue-rotate(112deg) brightness(114%) contrast(55%);
+}
+.btn-select-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: scroll;
+}
+.btn-select-list li {
+  padding: 7px 16px 7px 16px;
+}
+.btn-select-list li::first-letter {
+  text-transform: capitalize;
+}
+.btn-select-list li:focus, .btn-select-list li:hover {
+  background-color: #FFD15B;
+}
+.btn-tag {
+  padding: 17px 16px 17px 16px;
+  height: 53px;
+  background-color: #FFD15B;
+}
+.btn-tag p {
+  display: flex;
+  align-items: center;
+  padding-right: 60px;
 }
 
 /* PAGES */
@@ -106,28 +205,28 @@ header {
   justify-content: center;
   align-items: center;
 }
-header h1 {
+header img.logo {
   position: absolute;
-  top: 50px;
+  width: 220px;
+  top: 55px;
   left: 69px;
-  font-family: "Anton", sans-serif;
-  font-size: 2em;
-  color: #fff;
-  text-transform: uppercase;
 }
 header p {
   display: flex;
   text-align: center;
-  width: 700px;
+  width: 75%;
+  max-width: 730px;
   padding-bottom: 30px;
   font-family: "Anton", sans-serif;
-  font-size: 2.75em;
+  font-size: 3em;
+  line-height: 1.5em;
   color: #FFD15B;
   text-transform: uppercase;
 }
 header nav {
   position: relative;
-  width: 75%;
+  width: 80%;
+  max-width: 954px;
   display: flex;
   justify-content: center;
 }
@@ -174,16 +273,47 @@ header nav button img {
   filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(259deg) brightness(108%) contrast(100%);
   transition-duration: 0.3s;
 }
+header nav img.erase--header {
+  position: absolute;
+  display: none;
+  width: 13px;
+  height: 13px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 85px;
+}
 
 /* MAIN */
 main {
   padding: 50px 102px 102px 102px;
   background-color: #E5E5E5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recipe-filter {
+  display: flex;
+  justify-content: space-between;
+}
+.recipe-filter--select {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 750px;
+}
+
+.recipe-tags {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 21px 0 43px 0;
 }
 
 .recipesContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 66px 48px;
 }

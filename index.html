@@ -3,24 +3,68 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/svg" href="assets/favicon.svg">
+        <link rel="icon" type="image/svg" href="assets/logo/favicon.svg">
         <link href="css/style.css" type="text/css" rel="stylesheet">
         <script type="module" src="scripts/pages/index.js"></script>
         <title>LES PETITS PLATS</title>
     </head>
     <body>
         <header>
-            <h1>Les petits plats</h1>
+            <img src="assets/logo/les_petits_plats_logo.svg" alt="Les petits plats" class="logo">
             <p class="header-info">Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</p>
             <nav>
-                <input type="search" placeholder="Rechercher une recette, un ingrédient, ...">
+                <input class="recipe-search" type="search" placeholder="Rechercher une recette, un ingrédient, ...">
                 <button>
                     <img src="assets/icones/magnifying-glass-solid.svg" alt="Search">
                 </button>
+                <img src="assets/icones/erase.svg" alt="Effacer" class="erase--header">
             </nav>
         </header>
         <main>
-            <nav></nav>
+            <nav class="recipe-filter">
+                <div class="recipe-filter--select">
+                    <div class="btn btn-select ingredients-select">
+                        <div class="btn-select-titre">
+                            <p>Ingrédients</p><img src="assets/icones/vector_down.svg" alt="">
+                        </div>
+                        <div class="btn-select-search">
+                            <input id="ingredients" type="search" class="select-search--input">
+                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        </div>
+                        <ul class="btn-select-list ingredients-select--list"></ul>
+                    </div>
+                    <div class="btn btn-select appareils-select">
+                        <div class="btn-select-titre">
+                            <p>Appareils</p><img src="assets/icones/vector_down.svg" alt="">
+                        </div>
+                        <div class="btn-select-search">
+                            <input id="appareils" type="search" class="select-search--input">
+                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        </div>
+                        <ul class="btn-select-list appareils-select--list"></ul>
+                    </div>
+                    <div class="btn btn-select ustensiles-select">
+                        <div class="btn-select-titre">
+                            <p>Ustensiles</p><img src="assets/icones/vector_down.svg" alt="">
+                        </div>
+                        <div class="btn-select-search">
+                            <input id="ustensiles" type="search" class="select-search--input">
+                            <img src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        </div>
+                        <ul class="btn-select-list ustensiles-select--list"></ul>
+                    </div>
+                </div>
+                <div class="recipe-filter--result">Result</div>
+            </nav>
+            <div class="recipe-tags">
+                <div class="btn btn-tag">
+                    <p>Crème de Coco</p>
+                    <span>x</span>
+                </div>
+            </div>
             <div class="recipesContainer"></div>
         </main>
     </body>

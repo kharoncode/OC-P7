@@ -14,30 +14,30 @@ header {
     justify-content: center;
     align-items: center;
 
-    & h1{
+    & img.logo{
         position: absolute;
-        top: 50px;
+        width: 220px;
+        top: 55px;
         left: 69px;
-        font-family: $titre-font;
-        font-size: 2em;
-        color: #fff;
-        text-transform: uppercase;
     }
 
     & p{
         display: flex;
         text-align: center;
-        width: 700px;
+        width: 75%;
+        max-width: 730px;
         padding-bottom: 30px;
         font-family: $titre-font;
-        font-size: 2.75em;
+        font-size: 3em;
+        line-height: 1.5em;
         color: $color-tag;
         text-transform: uppercase;
     }
 
     & nav{
         position: relative;
-        width: 75%;
+        width: 80%;
+        max-width: 954px;
         display: flex;
         justify-content: center;
         & input{
@@ -86,17 +86,49 @@ header {
                 transition-duration: 0.3s;
             }
         }
+        & img.erase--header{
+            position: absolute;
+            display: none;
+            width: 13px;
+            height: 13px;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            right: 85px;
+        }
     }
 }
 /* MAIN */
 main {
     padding: 50px 102px 102px 102px;
     background-color: $bg-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recipe-filter{
+    display: flex;
+    justify-content: space-between;
+    &--select{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 750px;
+    }
+    
+}
+
+.recipe-tags{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 21px 0 43px 0;
 }
 
 .recipesContainer{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 66px 48px;
 }
