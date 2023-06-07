@@ -6,10 +6,16 @@ export function getRecipeCard(recipes){
     let ingredientsList = [];
     let applianceList = [];
     let titleList =[];
+    /* let tagList = new Map() */
+    let tagList = {}
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
         for(const data in ustensils){
-            ustensilsList.push(ustensils[data].toLowerCase());
+            let key = ustensils[data].toLowerCase();
+            ustensilsList.push(key);
+            tagList[`${key}`] = [`${id}`]
+            /* tagList[`${key}`].push(`${id}`) */
+            /* tagList.set(`${key}`,`${id}`); */
         }
         applianceList.push(appliance.toLowerCase());
         titleList.push(name.toLowerCase())
@@ -71,9 +77,12 @@ export function getRecipeCard(recipes){
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
+    console.log(tagList)
+
     return{ustensilsList, ingredientsList, applianceList, titleList};
 }
 
+// Recette Count
 export function recetteCount(){
     const recipeCard_elts = document.querySelectorAll(".recipeCard");
     const recipeCount_elt = document.querySelector(".recipe-filter--result");

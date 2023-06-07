@@ -29,6 +29,10 @@ ul {
   list-style-type: none;
 }
 
+.none {
+  display: none;
+}
+
 /* COMPOSANTS */
 .recipeCard {
   position: relative;
@@ -99,6 +103,7 @@ ul {
   border-radius: 10px;
 }
 .btn-select {
+  position: relative;
   padding: 17px 0 17px 0;
   width: 195px;
   height: 53px;
@@ -107,15 +112,15 @@ ul {
   flex-direction: column;
   overflow: hidden;
   transition-duration: 0.3s;
-}
-.btn-select:hover, .btn-select:focus {
-  height: 100%;
-  max-height: 324px;
-  transition-duration: 0.3s;
-}
-.btn-select:hover > div.btn-select-titre img, .btn-select:focus > div.btn-select-titre img {
-  transform: rotateX(180deg);
-  transition-duration: 0.3s;
+  z-index: 1;
+  /* &:hover{
+      height: 324px;
+      transition-duration: 0.3s;
+      &>div.btn-select-titre img{
+          transform: rotateX(180deg);
+          transition-duration: 0.3s;
+      }
+  } */
 }
 .btn-select-titre {
   display: flex;
@@ -123,11 +128,11 @@ ul {
   padding-bottom: 14px;
 }
 .btn-select-titre p {
-  padding-right: 60px;
+  padding-right: 50px;
 }
 .btn-select-titre img {
-  width: 13px;
-  height: 6px;
+  width: 20px;
+  height: 20px;
   transition-duration: 0.3s;
 }
 .btn-select-search {
@@ -163,11 +168,14 @@ ul {
   filter: invert(100%) sepia(0%) saturate(3816%) hue-rotate(112deg) brightness(114%) contrast(55%);
 }
 .btn-select-list {
-  margin-top: 24px;
+  height: 324px;
+  margin-top: 15px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-y: scroll;
+  z-index: 1;
 }
 .btn-select-list li {
   padding: 7px 16px 7px 16px;
@@ -299,6 +307,7 @@ main {
   justify-content: space-between;
 }
 .recipe-filter--select {
+  height: 56px;
   display: flex;
   justify-content: space-between;
   width: 100%;
