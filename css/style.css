@@ -113,14 +113,6 @@ ul {
   overflow: hidden;
   transition-duration: 0.3s;
   z-index: 1;
-  /* &:hover{
-      height: 324px;
-      transition-duration: 0.3s;
-      &>div.btn-select-titre img{
-          transform: rotateX(180deg);
-          transition-duration: 0.3s;
-      }
-  } */
 }
 .btn-select-titre {
   display: flex;
@@ -131,6 +123,7 @@ ul {
   padding-right: 50px;
 }
 .btn-select-titre img {
+  cursor: pointer;
   width: 20px;
   height: 20px;
   transition-duration: 0.3s;
@@ -175,6 +168,7 @@ ul {
   flex-direction: column;
   width: 100%;
   overflow-y: scroll;
+  scrollbar-width: thin;
   z-index: 1;
 }
 .btn-select-list li {
@@ -187,14 +181,32 @@ ul {
   background-color: #FFD15B;
 }
 .btn-tag {
+  display: none;
   padding: 17px 16px 17px 16px;
   height: 53px;
   background-color: #FFD15B;
 }
 .btn-tag p {
-  display: flex;
-  align-items: center;
+  display: block;
   padding-right: 60px;
+}
+.btn-tag p::first-letter {
+  text-transform: capitalize;
+}
+.btn-tag img {
+  height: 12px;
+  width: 12px;
+  filter: invert(7%) sepia(0%) saturate(4%) hue-rotate(76deg) brightness(107%) contrast(95%);
+}
+
+.selected {
+  background-color: #FFD15B;
+  background-image: url("../assets/icones/erase_list.svg");
+  background-repeat: no-repeat;
+  background-position-x: 158px;
+  background-position-y: center;
+  background-size: 17px 17px;
+  font-weight: 700;
 }
 
 /* PAGES */
@@ -318,11 +330,12 @@ main {
   font-family: "Anton", sans-serif;
 }
 
-.recipe-tags {
+.recipes-tags {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 21px 0 43px 0;
+  gap: 10px;
 }
 
 .recipesContainer {

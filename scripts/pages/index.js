@@ -18,12 +18,12 @@ function initSearch(data){
 }
 
 function init(){
-    const {ustensilsList, ingredientsList, applianceList, titleList} = getRecipeCard(recipes);
+    const {ustensilsList, ingredientsList, applianceList, titleList, tagList} = getRecipeCard(recipes);
     const data = [...new Set(ustensilsList),... new Set(ingredientsList),...new Set(applianceList),...new Set(titleList)];
     recetteCount();
     initSelect("ingredients", ingredientsList);
-    initSelect("appareils", applianceList)
-    initSelect("ustensiles", ustensilsList)
+    initSelect("appareils", applianceList);
+    initSelect("ustensiles", ustensilsList);
     initSearch(data);
 }
 

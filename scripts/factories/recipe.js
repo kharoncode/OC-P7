@@ -1,23 +1,31 @@
 // DOM Elements
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
+function addTagList(tagList, key, id){
+    if(tagList.has(`${key}`)){
+        let temp = tagList.get(`${key}`);
+        temp.push(`${id}`);
+        tagList.set(`${key}`,temp)
+    }else{
+        tagList.set(`${key}`,[`${id}`])
+    }
+}
+
 export function getRecipeCard(recipes){
     let ustensilsList = [];
     let ingredientsList = [];
     let applianceList = [];
     let titleList =[];
-    /* let tagList = new Map() */
-    let tagList = {}
+    let tagList = new Map()
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
         for(const data in ustensils){
             let key = ustensils[data].toLowerCase();
             ustensilsList.push(key);
-            tagList[`${key}`] = [`${id}`]
-            /* tagList[`${key}`].push(`${id}`) */
-            /* tagList.set(`${key}`,`${id}`); */
+            addTagList(tagList, key, id)
         }
         applianceList.push(appliance.toLowerCase());
+        addTagList(tagList, appliance, id)
         titleList.push(name.toLowerCase())
 
         const recipeCard = document.createElement('section');
@@ -59,6 +67,7 @@ export function getRecipeCard(recipes){
             div.innerHTML = `<h5>${ingredient}</h5>
                             <p>${quantity??"-"} ${unit??""}</p>`
             ingredientListe.appendChild(div);
+            addTagList(tagList,ingredient,id)
         }
         // Time
         const temps = document.createElement('div');
@@ -77,9 +86,7 @@ export function getRecipeCard(recipes){
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
-    console.log(tagList)
-
-    return{ustensilsList, ingredientsList, applianceList, titleList};
+    return{ustensilsList, ingredientsList, applianceList, titleList, tagList};
 }
 
 // Recette Count

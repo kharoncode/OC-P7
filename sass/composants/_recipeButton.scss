@@ -13,14 +13,6 @@
         overflow: hidden;
         transition-duration: 0.3s;
         z-index: 1;
-        /* &:hover{
-            height: 324px;
-            transition-duration: 0.3s;
-            &>div.btn-select-titre img{
-                transform: rotateX(180deg);
-                transition-duration: 0.3s;
-            }
-        } */
 
         &-titre{
             display: flex;
@@ -30,6 +22,7 @@
                 padding-right: 50px;
             }
             & img{
+                cursor: pointer;
                 width: 20px;
                 height: 20px;
                 transition-duration: 0.3s;
@@ -77,6 +70,7 @@
             flex-direction: column;
             width: 100%;
             overflow-y: scroll;
+            scrollbar-width: thin;
             z-index: 1;
             & li{
                 padding: 7px 16px 7px 16px; 
@@ -91,14 +85,31 @@
     }
 
     &-tag{
+        display: none;
         padding: 17px 16px 17px 16px;
         height: 53px;
         background-color: $color-quaternary;
         & p{
-            display: flex;
-            align-items: center;
+            display: block;
             padding-right: 60px;
+            &::first-letter{
+                text-transform: capitalize;
+            }
+        }
+        & img{
+            height: 12px;
+            width: 12px;
+            filter: $filter-primary;
         }
     }
 }
 
+.selected{
+    background-color: $color-quaternary;
+    background-image: url('../assets/icones/erase_list.svg');
+    background-repeat: no-repeat;
+    background-position-x: 158px;
+    background-position-y: center;
+    background-size: 17px 17px;
+    font-weight: 700;
+}

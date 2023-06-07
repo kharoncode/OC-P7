@@ -124,11 +124,12 @@ main {
     
 }
 
-.recipe-tags{
+.recipes-tags{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 21px 0 43px 0;
+    gap: 10px;
 }
 
 .recipesContainer{

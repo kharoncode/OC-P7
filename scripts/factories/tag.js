@@ -1,7 +1,0 @@
-function addTag(){
-
-}
-
-function removeTag(){
-    
-}
