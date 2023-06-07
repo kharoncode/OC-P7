@@ -121,6 +121,7 @@ ul {
 }
 .btn-select-titre p {
   padding-right: 50px;
+  font-weight: 500;
 }
 .btn-select-titre img {
   cursor: pointer;
@@ -332,7 +333,6 @@ main {
 
 .recipes-tags {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   padding: 21px 0 43px 0;
   gap: 10px;
