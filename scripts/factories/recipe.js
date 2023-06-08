@@ -38,6 +38,7 @@ export function getRecipeCard(recipes){
         const img = document.createElement('img');
         img.src = picture;
         img.alt = name;
+        img.setAttribute('loading','lazy');
 
         // INFO
         const info = document.createElement('div');
