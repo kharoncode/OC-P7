@@ -2,6 +2,7 @@
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
 function addTagList(tagList, key, id){
+    key=key.toLowerCase();
     if(tagList.has(`${key}`)){
         let temp = tagList.get(`${key}`);
         temp.push(`${id}`);

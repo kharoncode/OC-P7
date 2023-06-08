@@ -63,11 +63,13 @@ function addTag(element){
     element.classList.add('selected');
     let id = element.id.replace('select','tag');
     document.getElementById(`${id}`).style.display = "flex";
+    document.getElementById(`${id}`).classList.add('tag');
 }
 function removeTag(element){
     element.classList.remove('selected');
     let id = element.id.replace('select','tag');
     document.getElementById(`${id}`).style.display = "none";
+    document.getElementById(`${id}`).classList.remove('tag');
 }
 
 // INIT
@@ -81,6 +83,7 @@ export function initSelect(name, data){
     getSelectTagList(data, selectlist_elt, tagContainer_elt, name);
     const item_elts = document.querySelectorAll(`.${name}-item`)
     const tagErase_elts = document.querySelectorAll('.btn-tag img');
+    // add/remove Tag when clicling on select element
     for(let i=0; i<item_elts.length; i++){
         item_elts[i].addEventListener('click',(e)=>{
             if(e.target.matches('.selected')){
@@ -90,9 +93,11 @@ export function initSelect(name, data){
             }
         }
     )}
+    // remove Tag when clicking on the tag's cross
     for (let i=0; i<tagErase_elts.length; i++){
         tagErase_elts[i].addEventListener('click', (e)=>{
             e.target.parentElement.style.display = "none";
+            e.target.parentElement.classList.remove('tag');
             let id = e.target.id.replace('tag','select');
             id = id.replace('-erase','');
             document.getElementById(`${id}`).classList.remove('selected');
