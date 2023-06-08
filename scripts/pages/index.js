@@ -24,7 +24,7 @@ function init(){
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
     initSelect("ustensiles", ustensilsList);
-    initSearch(data);
+    initSearch(recipes);
     document.getElementById('submitSearch').addEventListener('click',()=>{
         const tag_elts = document.querySelectorAll('.tag');
         let selectedRecipes = [];
