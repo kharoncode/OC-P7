@@ -36,6 +36,13 @@ export function displayErase(erase_elt, input_elt){
                 none_elts[i].classList.remove('none');
             }
             input_elt.focus()
+            if(input_elt=document.getElementById('search')){
+                const recipeCard_elts = document.querySelectorAll('.recipeCard');
+                for(let i=0; i<recipeCard_elts.length; i++){
+                    recipeCard_elts[i].style.display = "flex";
+                    document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
+                }
+            }
         }
     })
 }

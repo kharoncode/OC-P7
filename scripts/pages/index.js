@@ -1,15 +1,10 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { showResultSearch } from "../factories/search.js";
+import { findRecipeId } from "../factories/search.js";
 
-function initSearch(data, recipeCard_elts){
-    const searchInput_elt = document.getElementById('search');
-    const searchInputErase_elt = document.getElementById('searchErase');
-    const submitSearchButton = document.getElementById('submitSearch');
-    searchInput_elt.addEventListener('keyup', (e)=>{
-        if(e.target.value.length>2){
-            const result = showResultSearch(e.target.value, data);
+function displayRecipesAfterSearch(e, data, recipeCard_elts){
+    const result = findRecipeId(e.value, data);
             for(let i=0; i<recipeCard_elts.length; i++){
                 recipeCard_elts[i].style.display = "none";
             }
@@ -17,25 +12,11 @@ function initSearch(data, recipeCard_elts){
                 document.getElementById(`recette-${result[i]}`).style.display = "flex";
             }
             document.querySelector(".recipe-filter--result").textContent = `${result.length} recettes`;
-        }
-        displayErase(searchInputErase_elt, e.target);
-    });
-    submitSearchButton.addEventListener('click', ()=>{
-        console.log(showResultSearch(searchInput_elt.value, data));
-    })
 }
 
-function init(){
-    const {ustensilsList, ingredientsList, applianceList, titleList, tagList} = getRecipeCard(recipes);
-    const data = [...new Set(ustensilsList),... new Set(ingredientsList),...new Set(applianceList),...new Set(titleList)];
-    const recipeCard_elts = document.querySelectorAll('.recipeCard');
-    recetteCount();
-    initSelect("ingredients", ingredientsList);
-    initSelect("appareils", applianceList);
-    initSelect("ustensiles", ustensilsList);
-    initSearch(recipes, recipeCard_elts);
-    document.getElementById('submitSearch').addEventListener('click',()=>{
-        const tag_elts = document.querySelectorAll('.tag');
+function displayRecipeWithTag (tagList, recipeCard_elts){
+    const tag_elts = document.querySelectorAll('.tag');
+    if(tag_elts.length !== 0){
         let selectedRecipes = [];
         for(let i=0; i<tag_elts.length; i++){
             let value = tag_elts[i].textContent;
@@ -52,7 +33,43 @@ function init(){
             document.getElementById(`recette-${selectedRecipes[i]}`).style.display = "flex";
         }
         document.querySelector(".recipe-filter--result").textContent = `${selectedRecipes.length} recettes`;
+    } else {
+        for(let i=0; i<recipeCard_elts.length; i++){
+            recipeCard_elts[i].style.display = "flex";
+            document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
+        }
+    }
+}
+
+function initSearch(data, recipeCard_elts){
+    const searchInput_elt = document.getElementById('search');
+    const searchInputErase_elt = document.getElementById('searchErase');
+    const submitSearchButton = document.getElementById('submitSearch');
+    searchInput_elt.addEventListener('keyup', (e)=>{
+        if(e.target.value.length>2){
+            displayRecipesAfterSearch(e.target, data, recipeCard_elts);
+        }
+        displayErase(searchInputErase_elt, e.target);
     });
+    submitSearchButton.addEventListener('click', ()=>{
+        displayRecipesAfterSearch(searchInput_elt, data, recipeCard_elts);
+    })
+}
+
+function init(){
+    const {ustensilsList, ingredientsList, applianceList, tagList} = getRecipeCard(recipes);
+    const recipeCard_elts = document.querySelectorAll('.recipeCard');
+    recetteCount();
+    initSelect("ingredients", ingredientsList);
+    initSelect("appareils", applianceList);
+    initSelect("ustensiles", ustensilsList);
+    initSearch(recipes, recipeCard_elts);
+    const list_elts = document.querySelectorAll(".btn-select-list");
+    for (let i=0; i<list_elts.length; i++){
+        list_elts[i].addEventListener('click',()=>{
+            displayRecipeWithTag(tagList, recipeCard_elts);
+        });
+    }
 }
 
 init();

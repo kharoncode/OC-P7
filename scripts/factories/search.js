@@ -1,4 +1,4 @@
-export function showResultSearch(value, data){
+export function findRecipeId(value, data){
     value=value.toLowerCase();
     let recipeSearchList = []
     for(let i=0; i<data.length; i++){

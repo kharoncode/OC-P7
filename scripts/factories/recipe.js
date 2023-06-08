@@ -16,7 +16,6 @@ export function getRecipeCard(recipes){
     let ustensilsList = [];
     let ingredientsList = [];
     let applianceList = [];
-    let titleList =[];
     let tagList = new Map()
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
@@ -27,7 +26,6 @@ export function getRecipeCard(recipes){
         }
         applianceList.push(appliance.toLowerCase());
         addTagList(tagList, appliance, id)
-        titleList.push(name.toLowerCase())
 
         const recipeCard = document.createElement('section');
         recipeCard.classList = "recipeCard"
@@ -88,7 +86,7 @@ export function getRecipeCard(recipes){
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
-    return{ustensilsList, ingredientsList, applianceList, titleList, tagList};
+    return{ustensilsList, ingredientsList, applianceList, tagList};
 }
 
 // Recette Count
