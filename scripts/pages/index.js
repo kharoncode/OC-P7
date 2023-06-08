@@ -3,13 +3,22 @@ import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
 import { showResultSearch } from "../factories/search.js";
 
-function initSearch(data){
+function initSearch(data, recipeCard_elts){
     const searchInput_elt = document.getElementById('search');
     const searchInputErase_elt = document.getElementById('searchErase');
     const submitSearchButton = document.getElementById('submitSearch');
     searchInput_elt.addEventListener('keyup', (e)=>{
+        if(e.target.value.length>2){
+            const result = showResultSearch(e.target.value, data);
+            for(let i=0; i<recipeCard_elts.length; i++){
+                recipeCard_elts[i].style.display = "none";
+            }
+            for(let i=0; i<result.length; i++){
+                document.getElementById(`recette-${result[i]}`).style.display = "flex";
+            }
+            document.querySelector(".recipe-filter--result").textContent = `${result.length} recettes`;
+        }
         displayErase(searchInputErase_elt, e.target);
-        console.log(showResultSearch(e.target.value, data))
     });
     submitSearchButton.addEventListener('click', ()=>{
         console.log(showResultSearch(searchInput_elt.value, data));
@@ -24,7 +33,7 @@ function init(){
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
     initSelect("ustensiles", ustensilsList);
-    initSearch(recipes);
+    initSearch(recipes, recipeCard_elts);
     document.getElementById('submitSearch').addEventListener('click',()=>{
         const tag_elts = document.querySelectorAll('.tag');
         let selectedRecipes = [];
