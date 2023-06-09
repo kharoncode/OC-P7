@@ -3,18 +3,31 @@ import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
 import { findRecipeId } from "../factories/search.js";
 
-function displayRecipesAfterSearch(e, data, recipeCard_elts){
-    const result = findRecipeId(e.value, data);
-            for(let i=0; i<recipeCard_elts.length; i++){
-                recipeCard_elts[i].style.display = "none";
-            }
-            for(let i=0; i<result.length; i++){
-                document.getElementById(`recette-${result[i]}`).style.display = "flex";
-            }
-            document.querySelector(".recipe-filter--result").textContent = `${result.length} recettes`;
+function displayRecipe(selectedRecipe_elts){
+    const recipeCard_elts = document.querySelectorAll('.recipeCard');
+    for(let i=0; i<recipeCard_elts.length; i++){
+        recipeCard_elts[i].style.display = "none";
+    }
+    for(let i=0; i<selectedRecipe_elts.length; i++){
+        document.getElementById(`recette-${selectedRecipe_elts[i]}`).style.display = "flex";
+    }
+    document.querySelector(".recipe-filter--result").textContent = `${selectedRecipe_elts.length} recettes`;
 }
 
-function displayRecipeWithTag (tagList, recipeCard_elts){
+function resetDisplayRecipe(){
+    const recipeCard_elts = document.querySelectorAll('.recipeCard');
+    for(let i=0; i<recipeCard_elts.length; i++){
+        recipeCard_elts[i].style.display = "flex";
+    }
+    document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
+}
+
+function displayRecipesAfterSearch(e, data){
+    const result = findRecipeId(e.value, data);
+    displayRecipe(result);
+}
+
+function displayRecipeWithTag (tagList){
     const tag_elts = document.querySelectorAll('.tag');
     if(tag_elts.length !== 0){
         let selectedRecipes = [];
@@ -26,48 +39,40 @@ function displayRecipeWithTag (tagList, recipeCard_elts){
             }
         }
         selectedRecipes=[...new Set(selectedRecipes)]
-        for(let i=0; i<recipeCard_elts.length; i++){
-            recipeCard_elts[i].style.display = "none";
-        }
-        for(let i=0; i<selectedRecipes.length; i++){
-            document.getElementById(`recette-${selectedRecipes[i]}`).style.display = "flex";
-        }
-        document.querySelector(".recipe-filter--result").textContent = `${selectedRecipes.length} recettes`;
+        displayRecipe(selectedRecipes)
     } else {
-        for(let i=0; i<recipeCard_elts.length; i++){
-            recipeCard_elts[i].style.display = "flex";
-            document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
-        }
+        resetDisplayRecipe()
     }
 }
 
-function initSearch(data, recipeCard_elts){
+function initSearch(data){
     const searchInput_elt = document.getElementById('search');
     const searchInputErase_elt = document.getElementById('searchErase');
     const submitSearchButton = document.getElementById('submitSearch');
     searchInput_elt.addEventListener('keyup', (e)=>{
         if(e.target.value.length>2){
-            displayRecipesAfterSearch(e.target, data, recipeCard_elts);
+            displayRecipesAfterSearch(e.target, data);
+        }else{
+            resetDisplayRecipe();
         }
         displayErase(searchInputErase_elt, e.target);
     });
     submitSearchButton.addEventListener('click', ()=>{
-        displayRecipesAfterSearch(searchInput_elt, data, recipeCard_elts);
+        displayRecipesAfterSearch(searchInput_elt, data);
     })
 }
 
 function init(){
     const {ustensilsList, ingredientsList, applianceList, tagList} = getRecipeCard(recipes);
-    const recipeCard_elts = document.querySelectorAll('.recipeCard');
     recetteCount();
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
     initSelect("ustensiles", ustensilsList);
-    initSearch(recipes, recipeCard_elts);
+    initSearch(recipes);
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
-            displayRecipeWithTag(tagList, recipeCard_elts);
+            displayRecipeWithTag(tagList);
         });
     }
 }
