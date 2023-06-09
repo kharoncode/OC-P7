@@ -17,6 +17,7 @@ export function findRecipeId(value, data){
         ingredient = ingredient.join(' ');
         if(name.includes(value) || ingredient.includes(value) || description.includes(value) || appliance.includes(value) || ustensils.includes(value)){
             recipeSearchList.push(id);
+            continue;
         }
     }
     return recipeSearchList;

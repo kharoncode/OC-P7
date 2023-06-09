@@ -51,7 +51,9 @@ function initSearch(data){
     const submitSearchButton = document.getElementById('submitSearch');
     searchInput_elt.addEventListener('keyup', (e)=>{
         if(e.target.value.length>2){
+            console.time("displayRecipe");
             displayRecipesAfterSearch(e.target, data);
+            console.timeEnd("displayRecipe");
         }else{
             resetDisplayRecipe();
         }
