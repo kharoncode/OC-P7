@@ -3,6 +3,14 @@ import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
 import { findRecipeId } from "../factories/search.js";
 
+function showNumberOfRecipe(length){
+    if(length>0 && length<10){
+        document.querySelector(".recipe-filter--result").textContent = `0${length} recettes`;
+    }else{
+        document.querySelector(".recipe-filter--result").textContent = `${length} recettes`;
+    }
+}
+
 function displayRecipe(selectedRecipe_elts){
     const recipeCard_elts = document.querySelectorAll('.recipeCard');
     for(let i=0; i<recipeCard_elts.length; i++){
@@ -11,7 +19,7 @@ function displayRecipe(selectedRecipe_elts){
     for(let i=0; i<selectedRecipe_elts.length; i++){
         document.getElementById(`recette-${selectedRecipe_elts[i]}`).style.display = "flex";
     }
-    document.querySelector(".recipe-filter--result").textContent = `${selectedRecipe_elts.length} recettes`;
+    showNumberOfRecipe(selectedRecipe_elts.length)
 }
 
 function resetDisplayRecipe(){
