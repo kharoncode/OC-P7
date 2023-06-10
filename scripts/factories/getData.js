@@ -1,3 +1,5 @@
+import { findRecipeId } from "./search";
+
 function getTagData(data){
     let ustensilsList = [];
     let ingredientsList = [];
@@ -54,4 +56,15 @@ function filtreRecurcif(value, data){
         }
     }
     return ids;
+}
+
+
+function filtre(value, data){
+    if(value[i]==(value.length-1)){
+        return findRecipeId(value[i], data)
+    }else{
+        ids = findRecipeId(valueArray[i], data);
+        newData = returnNewDataAfterSearch(ids, newData);
+        filtre(value[i+1], newData);
+    }
 }

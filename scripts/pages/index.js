@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { findRecipeId, filtreRecurcif } from "../factories/search.js";
+import { findRecipeId } from "../factories/search.js";
 
 function showNumberOfRecipe(length){
     if(length>0 && length<10){
@@ -32,7 +32,8 @@ function resetDisplayRecipe(){
 
 function displayRecipesAfterSearch(e, data){
     const result = findRecipeId(e.value, data);
-    /* const result = filtreRecurcif(e.value, data); */
+    /* let valueArray = e.value.split(" "); 
+    const result = filtre(valueArray, data); */
     displayRecipe(result);
 }
 
