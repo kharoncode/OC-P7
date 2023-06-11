@@ -53,12 +53,16 @@ export function filtreRecurcif(value, data){
     return ids;
 }
 
-function filtre(value, data){
-    if(value[i]==(value.length-1)){
-        return findRecipeId(value[i], data)
-    }else{
-        let ids = findRecipeId(value[i], data);
-        let newData = returnNewDataAfterSearch(ids, data);
-        filtre(value, newData);
+export function filtre(value, data){
+    console.log(value[0])
+    let ids = findRecipeId(value[0], data);
+    let newData = data;
+    for(let i=0; value.length; i++){
+        if(value[i]==(value.length-1)){
+            return findRecipeId(value[i], newData)
+        }else{
+            ids = findRecipeId(value[i], newData);
+            newData = returnNewDataAfterSearch(ids, newData);
+        }
     }
 }

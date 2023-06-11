@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { findRecipeId } from "../factories/search.js";
+import { findRecipeId, filtre } from "../factories/search.js";
 
 function showNumberOfRecipe(length){
     if(length>0 && length<10){
