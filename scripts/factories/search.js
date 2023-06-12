@@ -55,7 +55,7 @@ export function filtreRecurcif(value, data){
 
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
-        console.log("new data = " + data.length);
+        console.log("new data de [i="+i+"] = " + data.length);
         value[i]=value[i].trim();
         let ids = findRecipeId(value[i],data);
         if(i==(value.length-1)){

@@ -19,7 +19,7 @@ function displayRecipe(selectedRecipe_elts){
     for(let i=0; i<selectedRecipe_elts.length; i++){
         document.getElementById(`recette-${selectedRecipe_elts[i]}`).style.display = "flex";
     }
-    showNumberOfRecipe(selectedRecipe_elts.length)
+    showNumberOfRecipe(selectedRecipe_elts.length);
 }
 
 function resetDisplayRecipe(){
