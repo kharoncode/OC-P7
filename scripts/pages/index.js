@@ -32,8 +32,9 @@ function resetDisplayRecipe(){
 
 function displayRecipesAfterSearch(e, data){
     const result = findRecipeId(e.value, data);
-    /* let valueArray = e.value.split(" "); 
-    const result = filtre(valueArray, data); */
+    /* let valueArray = e.value.split(" ").filter(n=>n); 
+    const result = filtre(valueArray, data);
+    console.log("result = " + result.length) */
     displayRecipe(result);
 }
 

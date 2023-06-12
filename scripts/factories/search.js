@@ -54,15 +54,31 @@ export function filtreRecurcif(value, data){
 }
 
 export function filtre(value, data){
-    console.log(value[0])
-    let ids = findRecipeId(value[0], data);
-    let newData = data;
-    for(let i=0; value.length; i++){
-        if(value[i]==(value.length-1)){
-            return findRecipeId(value[i], newData)
+    for(let i=0; i<value.length; i++){
+        console.log("new data = " + data.length);
+        value[i]=value[i].trim();
+        let ids = findRecipeId(value[i],data);
+        if(i==(value.length-1)){
+            return ids;
         }else{
-            ids = findRecipeId(value[i], newData);
-            newData = returnNewDataAfterSearch(ids, newData);
+            data = returnNewDataAfterSearch(ids,data);
+            continue;
         }
     }
+    
 }
+
+/* export function filtreBis(value, data){
+        let i=0;
+        value[i]=value[i].trim();
+        let ids = findRecipeId(value[i],data);
+        if(i==(value.length-1)){
+            return ids;
+        }else{
+            data = returnNewDataAfterSearch(ids,data);
+
+            filtreBis(value[i+1], data);
+        }
+    
+    
+} */
