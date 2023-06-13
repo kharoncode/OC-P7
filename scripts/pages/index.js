@@ -31,10 +31,9 @@ function resetDisplayRecipe(){
 }
 
 function displayRecipesAfterSearch(e, data){
-    const result = findRecipeId(e.value, data);
-    /* let valueArray = e.value.split(" ").filter(n=>n); 
+    /* const result = findRecipeId(e.value, data); */
+    let valueArray = e.value.split(" ").filter(n=>n); 
     const result = filtre(valueArray, data);
-    console.log("result = " + result.length) */
     displayRecipe(result);
 }
 
@@ -62,9 +61,10 @@ function initSearch(data){
     const submitSearchButton = document.getElementById('submitSearch');
     searchInput_elt.addEventListener('keyup', (e)=>{
         if(e.target.value.length>2){
-            console.time("displayRecipe");
+            const t0 = performance.now();
             displayRecipesAfterSearch(e.target, data);
-            console.timeEnd("displayRecipe");
+            const t1 = performance.now();
+            console.log("displayRecipesAdterSearch a demandé " + (t1-t0) + " ms");
         }else{
             resetDisplayRecipe();
         }

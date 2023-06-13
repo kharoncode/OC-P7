@@ -6,8 +6,8 @@ export function findRecipeId(value, data){
         name = name.toLowerCase();
         description = description.toLowerCase();
         appliance = appliance.toLowerCase();
-        for(let i=0; i<ustensils.length; i++){
-            ustensils[i] = ustensils[i].toLowerCase();
+        for(let j=0; j<ustensils.length; j++){
+            ustensils[j] = ustensils[j].toLowerCase();
         }
         ustensils = ustensils.join(' ');
         let ingredient = [];
@@ -15,7 +15,7 @@ export function findRecipeId(value, data){
             ingredient.push(ingredients[j].ingredient.toLowerCase());
         }
         ingredient = ingredient.join(' ');
-        if(name.includes(value) || ingredient.includes(value) || description.includes(value) || appliance.includes(value) || ustensils.includes(value)){
+        if(name.includes(value) || description.includes(value) || appliance.includes(value) || ustensils.includes(value) || ingredient.includes(value)){
             recipeSearchList.push(id);
             continue;
         }
@@ -33,8 +33,8 @@ function returnNewDataAfterSearch(ids,data){
     return newData;
 }
 
-// search for multi value : value1 get data and return data11, value 2 get data1 and return data2, ...
-export function filtreRecurcif(value, data){
+// search for multi value : value1 get data and return data1, value 2 get data1 and return data2, ...
+/* function filtreRecurcif(value, data){
     let valueArray = value.split(" ");
     let ids = findRecipeId(valueArray[0], data)
     let newData = returnNewDataAfterSearch(ids, data);
@@ -51,13 +51,16 @@ export function filtreRecurcif(value, data){
         return ids;
     }
     return ids;
-}
+} */
 
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
-        console.log("new data de [i="+i+"] = " + data.length);
         value[i]=value[i].trim();
         let ids = findRecipeId(value[i],data);
+        if(data.length===1){
+            let id = data[0].id;
+            return id.toString();
+        }
         if(i==(value.length-1)){
             return ids;
         }else{
