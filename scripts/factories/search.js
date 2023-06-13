@@ -1,21 +1,8 @@
-export function findRecipeId(value, data){
-    value=value.toLowerCase();
-    let recipeSearchList = []
-    for(let i=0; i<data.length; i++){
-        let {id, name, ingredients, description, appliance, ustensils} = data[i];
-        name = name.toLowerCase();
-        description = description.toLowerCase();
-        appliance = appliance.toLowerCase();
-        for(let j=0; j<ustensils.length; j++){
-            ustensils[j] = ustensils[j].toLowerCase();
-        }
-        ustensils = ustensils.join(' ');
-        let ingredient = [];
-        for(let j=0; j<ingredients.length; j++){
-            ingredient.push(ingredients[j].ingredient.toLowerCase());
-        }
-        ingredient = ingredient.join(' ');
-        if(name.includes(value) || description.includes(value) || appliance.includes(value) || ustensils.includes(value) || ingredient.includes(value)){
+// with value return a list of id
+function returnRecipeID(value, data){
+    let recipeSearchList = [];
+    for(const id in data){
+        if(data[id].includes(value)){
             recipeSearchList.push(id);
             continue;
         }
@@ -23,44 +10,20 @@ export function findRecipeId(value, data){
     return recipeSearchList;
 }
 
-// TEST
-
+// with id create a new data base
 function returnNewDataAfterSearch(ids,data){
-    let newData = [];
+    let newData = {};
     for(let i=0; i<ids.length; i++){
-        newData.push(data[ids[i]-1])
+        newData[ids[i]]=data[ids[i]];
     }
     return newData;
 }
 
-// search for multi value : value1 get data and return data1, value 2 get data1 and return data2, ...
-/* function filtreRecurcif(value, data){
-    let valueArray = value.split(" ");
-    let ids = findRecipeId(valueArray[0], data)
-    let newData = returnNewDataAfterSearch(ids, data);
-    if(valueArray.length>1){
-        for(let i=1; i<valueArray.length; i++){
-            if(valueArray[i].length<3){
-                continue;
-            }else{  
-                ids = findRecipeId(valueArray[i], newData);
-                newData = returnNewDataAfterSearch(ids, newData);
-            }
-        }
-    }else{
-        return ids;
-    }
-    return ids;
-} */
-
+// search for multi value
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
-        value[i]=value[i].trim();
-        let ids = findRecipeId(value[i],data);
-        if(data.length===1){
-            let id = data[0].id;
-            return id.toString();
-        }
+        value[i]=value[i].trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        let ids = returnRecipeID(value[i],data);
         if(i==(value.length-1)){
             return ids;
         }else{
@@ -68,20 +31,4 @@ export function filtre(value, data){
             continue;
         }
     }
-    
 }
-
-/* export function filtreBis(value, data){
-        let i=0;
-        value[i]=value[i].trim();
-        let ids = findRecipeId(value[i],data);
-        if(i==(value.length-1)){
-            return ids;
-        }else{
-            data = returnNewDataAfterSearch(ids,data);
-
-            filtreBis(value[i+1], data);
-        }
-    
-    
-} */

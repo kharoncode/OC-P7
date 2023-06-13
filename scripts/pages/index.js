@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, recetteCount } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { findRecipeId, filtre } from "../factories/search.js";
+import { filtre } from "../factories/search.js";
 
 function showNumberOfRecipe(length){
     if(length>0 && length<10){
@@ -27,12 +27,13 @@ function resetDisplayRecipe(){
     for(let i=0; i<recipeCard_elts.length; i++){
         recipeCard_elts[i].style.display = "flex";
     }
-    document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
+    showNumberOfRecipe(recipeCard_elts.length);
 }
 
 function displayRecipesAfterSearch(e, data){
     /* const result = findRecipeId(e.value, data); */
     let valueArray = e.value.split(" ").filter(n=>n); 
+    /* const result = filtre(valueArray, data); */
     const result = filtre(valueArray, data);
     displayRecipe(result);
 }
@@ -76,12 +77,13 @@ function initSearch(data){
 }
 
 function init(){
-    const {ustensilsList, ingredientsList, applianceList, tagList} = getRecipeCard(recipes);
+    const {ustensilsList, ingredientsList, applianceList, tagList, newData} = getRecipeCard(recipes);
     recetteCount();
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
     initSelect("ustensiles", ustensilsList);
-    initSearch(recipes);
+    /* initSearch(recipes); */
+    initSearch(newData);
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{

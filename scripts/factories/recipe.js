@@ -12,20 +12,32 @@ function addTagList(tagList, key, id){
     }
 }
 
+function removeAccents (str){
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');}
+
 export function getRecipeCard(recipes){
     let ustensilsList = [];
     let ingredientsList = [];
     let applianceList = [];
-    let tagList = new Map()
+    let tagList = new Map();
+    let newData = {};
     for(const recipe in recipes){
         const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
+        let recipeData = [];
+        recipeData.push(removeAccents(name.toLowerCase()))
+        
         for(const data in ustensils){
             let key = ustensils[data].toLowerCase();
             ustensilsList.push(key);
+            recipeData.push(removeAccents(key));
             addTagList(tagList, key, id)
         }
         applianceList.push(appliance.toLowerCase());
+        recipeData.push(removeAccents(appliance.toLowerCase()));
         addTagList(tagList, appliance, id)
+
+        let formatDescription = removeAccents(description.toLowerCase()).replace(/[.,]/g,'').split(' ');
+        formatDescription=[... new Set(formatDescription)];
 
         const recipeCard = document.createElement('section');
         recipeCard.classList = "recipeCard"
@@ -62,10 +74,12 @@ export function getRecipeCard(recipes){
         for(const data in ingredients){
             const {ingredient, quantity, unit} = ingredients[data];
             ingredientsList.push(ingredient.toLowerCase());
+            recipeData.push(removeAccents(ingredient.toLowerCase()));
             const div = document.createElement('div');
-            div.classList = "recipeCard-info_ingredients--liste-ingredient"
-            div.innerHTML = `<h5>${ingredient}</h5>
-                            <p>${quantity??"-"} ${unit??""}</p>`
+            div.classList = "recipeCard-info_ingredients--liste-ingredient";
+            let ingredient_html = `<h5>${ingredient}</h5>
+                                  <p>${quantity??"-"} ${unit??""}</p>`;
+            div.insertAdjacentHTML('beforeend', ingredient_html);
             ingredientListe.appendChild(div);
             addTagList(tagList,ingredient,id)
         }
@@ -81,12 +95,16 @@ export function getRecipeCard(recipes){
         info.appendChild(recette);
         info.appendChild(ingredientsContainer);
         ingredientsContainer.appendChild(ingredientListe);
+
+        recipeData = new Set([...recipeData, ...formatDescription]);
+        recipeData=[...new Set(recipeData)].join(' ');
+        newData[id]=recipeData;
     }
     ustensilsList=[...new Set(ustensilsList)].sort((a,b)=>{return a.localeCompare(b);});
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
-    return{ustensilsList, ingredientsList, applianceList, tagList};
+    return{ustensilsList, ingredientsList, applianceList, tagList, newData};
 }
 
 // Recette Count
