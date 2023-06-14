@@ -39,7 +39,7 @@ export function displayErase(erase_elt, input_elt){
             if(input_elt=document.getElementById('search')){
                 const recipeCard_elts = document.querySelectorAll('.recipeCard');
                 for(let i=0; i<recipeCard_elts.length; i++){
-                    recipeCard_elts[i].style.display = "flex";
+                    recipeCard_elts[i].classList.add("recipeCard__selected");
                     document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
                 }
             }

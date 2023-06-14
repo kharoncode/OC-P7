@@ -1,14 +1,14 @@
 // DOM Elements
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
-function addTagList(tagList, key, id){
+function addIDToMap(mapElt, key, id){
     key=key.toLowerCase();
-    if(tagList.has(`${key}`)){
-        let temp = tagList.get(`${key}`);
+    if(mapElt.has(`${key}`)){
+        let temp = mapElt.get(`${key}`);
         temp.push(`${id}`);
-        tagList.set(`${key}`,temp)
+        mapElt.set(`${key}`,temp)
     }else{
-        tagList.set(`${key}`,[`${id}`])
+        mapElt.set(`${key}`,[`${id}`])
     }
 }
 
@@ -19,30 +19,36 @@ export function getRecipeCard(recipes){
     let ustensilsList = [];
     let ingredientsList = [];
     let applianceList = [];
-    let tagList = new Map();
     let newData = {};
+    let tagList = new Map();
+    let recipeIDMap = new Map();
     for(const recipe in recipes){
-        const {id, image, name, servings, ingredients, time, description, appliance, ustensils} = recipes[recipe];
-        let recipeData = [];
-        recipeData.push(removeAccents(name.toLowerCase()))
+        const {id, image, name, ingredients, time, description, appliance, ustensils} = recipes[recipe];
+        let recipeData = []
+        
+        let nameFormat = removeAccents(name.toLowerCase()).replace(/[.,']/g,'').split(' ');
+        recipeData = new Set([...recipeData, ...nameFormat]);
         
         for(const data in ustensils){
             let key = ustensils[data].toLowerCase();
             ustensilsList.push(key);
-            recipeData.push(removeAccents(key));
-            addTagList(tagList, key, id)
+            addIDToMap(tagList, key, id);
+            key = removeAccents(key).replace(/[.,()°']/g,' ').split(' ');
+            recipeData = new Set([...recipeData, ...key]);
         }
-        applianceList.push(appliance.toLowerCase());
-        recipeData.push(removeAccents(appliance.toLowerCase()));
-        addTagList(tagList, appliance, id)
 
-        let formatDescription = removeAccents(description.toLowerCase()).replace(/[.,]/g,'').split(' ');
-        formatDescription=[... new Set(formatDescription)];
+        let applianceFormat = appliance.toLowerCase();
+        applianceList.push(applianceFormat);
+        applianceFormat = removeAccents(applianceFormat).split(' ')
+        recipeData = new Set([...recipeData, ...applianceFormat]);
+        addIDToMap(tagList, appliance, id);
+
+        let descriptionFormat = removeAccents(description.toLowerCase()).replace(/[.,()°'’-]/g,' ').split(' ');
+        recipeData = new Set([...recipeData, ...descriptionFormat]);
 
         const recipeCard = document.createElement('section');
-        recipeCard.classList = "recipeCard"
+        recipeCard.classList.add("recipeCard","recipeCard__selected");
         recipeCard.setAttribute("id", `recette-${id}`);
-        recipesContainer_elt.appendChild(recipeCard)
 
         // IMG
         let picture = `./assets/images/mini/${image}`;
@@ -53,41 +59,41 @@ export function getRecipeCard(recipes){
 
         // INFO
         const info = document.createElement('div');
-        info.classList = "recipeCard-info";
+        info.classList.add("recipeCard-info");
         // Titre
         const titre = document.createElement('h3');
         titre.textContent = name;
         // Description
         const recette = document.createElement('div');
-        recette.classList = "recipeCard-info_description";
-        let recetteTitre_html = "<h4>Recette</h4>";
-        let recette_html = `<p>${description}</p>`
-        recette.insertAdjacentHTML('afterbegin', recetteTitre_html);
-        recette.insertAdjacentHTML('beforeend', recette_html);
+        recette.classList.add("recipeCard-info_description");
+        let recette_html = `<h4>Recette</h4><p>${description}</p>`;
+        recette.insertAdjacentHTML('afterbegin', recette_html);
         // Ingredients
         const ingredientsContainer = document.createElement('div');
-        ingredientsContainer.classList = 'recipeCard-info_ingredients';
+        ingredientsContainer.classList.add('recipeCard-info_ingredients');
         let ingredientTitre_html = "<h4>Ingrédients</h4>";
         ingredientsContainer.insertAdjacentHTML('afterbegin' , ingredientTitre_html);
         const ingredientListe = document.createElement('div');
-        ingredientListe.classList = "recipeCard-info_ingredients--liste";
+        ingredientListe.classList.add("recipeCard-info_ingredients--liste");
         for(const data in ingredients){
             const {ingredient, quantity, unit} = ingredients[data];
-            ingredientsList.push(ingredient.toLowerCase());
-            recipeData.push(removeAccents(ingredient.toLowerCase()));
             const div = document.createElement('div');
-            div.classList = "recipeCard-info_ingredients--liste-ingredient";
-            let ingredient_html = `<h5>${ingredient}</h5>
-                                  <p>${quantity??"-"} ${unit??""}</p>`;
+            div.classList.add("recipeCard-info_ingredients--liste-ingredient");
+            let ingredient_html = `<h5>${ingredient}</h5><p>${quantity??"-"} ${unit??""}</p>`;
             div.insertAdjacentHTML('beforeend', ingredient_html);
             ingredientListe.appendChild(div);
-            addTagList(tagList,ingredient,id)
+            let ingredientFormat = ingredient.toLowerCase();
+            ingredientsList.push(ingredientFormat);
+            ingredientFormat = removeAccents(ingredientFormat).replace(/[.,()°']/g,' ').split(' ');
+            recipeData = new Set([...recipeData, ...ingredientFormat]);
+            addIDToMap(tagList,ingredient,id);
         }
         // Time
         const temps = document.createElement('div');
-        temps.classList = "recipeCard_time";
+        temps.classList.add("recipeCard_time");
         temps.textContent = `${time}min`
 
+        recipesContainer_elt.appendChild(recipeCard)
         recipeCard.appendChild(img);
         recipeCard.appendChild(info);
         recipeCard.appendChild(temps);
@@ -96,24 +102,17 @@ export function getRecipeCard(recipes){
         info.appendChild(ingredientsContainer);
         ingredientsContainer.appendChild(ingredientListe);
 
-        recipeData = new Set([...recipeData, ...formatDescription]);
-        recipeData=[...new Set(recipeData)].join(' ');
-        newData[id]=recipeData;
+        recipeData = Array.from(recipeData).filter(n=>n.length>2 && isNaN(n));
+        for(let i=0; i<recipeData.length; i++){
+            addIDToMap(recipeIDMap, recipeData[i], id);
+        }
+        newData[id]=recipeData.join(' ');
     }
+
+    // Select
     ustensilsList=[...new Set(ustensilsList)].sort((a,b)=>{return a.localeCompare(b);});
     ingredientsList=[...new Set(ingredientsList)].sort((a,b)=>{return a.localeCompare(b);});
     applianceList=[...new Set(applianceList)].sort((a,b)=>{return a.localeCompare(b);});
 
-    return{ustensilsList, ingredientsList, applianceList, tagList, newData};
-}
-
-// Recette Count
-export function recetteCount(){
-    const recipeCard_elts = document.querySelectorAll(".recipeCard");
-    const recipeCount_elt = document.querySelector(".recipe-filter--result");
-    if(recipeCard_elts.length<2){
-        recipeCount_elt.textContent=`${recipeCard_elts.length} recette`
-    }else{
-        recipeCount_elt.textContent=`${recipeCard_elts.length} recettes`
-    }
+    return{ustensilsList, ingredientsList, applianceList, tagList, newData, recipeIDMap};
 }

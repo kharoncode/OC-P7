@@ -1,3 +1,4 @@
+// Search with newData
 // with value return a list of id
 function returnRecipeID(value, data){
     let recipeSearchList = [];
@@ -22,13 +23,30 @@ function returnNewDataAfterSearch(ids,data){
 // search for multi value
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
-        value[i]=value[i].trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         let ids = returnRecipeID(value[i],data);
         if(i==(value.length-1)){
             return ids;
         }else{
             data = returnNewDataAfterSearch(ids,data);
             continue;
+        }
+    }
+}
+
+// Search with recipeIDMap
+export function filtreMap(value, data){
+    let ids = new Set([... data.get(value[0])])
+    for(let i=0; i<value.length; i++){
+        if(data.get(value[i])){
+            let tempIds = new Set([... data.get(value[i])]);
+            ids = new Set([...ids].filter(n=>tempIds.has(n)));
+            if(i==(value.length-1)){
+                return ids;
+            }else{
+                continue;
+            }
+        }else{
+            return ids;
         }
     }
 }
