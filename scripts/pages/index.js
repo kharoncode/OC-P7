@@ -97,11 +97,6 @@ function createTagList(data, newData){
 
 function init(){
     const {ustensilsList, ingredientsList, applianceList, tagList, newData, recipeIDMap} = getRecipeCard(recipes);
-    let count = 0;
-    for(const id in newData){
-        count += newData[id].length
-    }
-    console.log(count)
     showNumberOfRecipe();
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
