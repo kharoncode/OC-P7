@@ -35,8 +35,18 @@ export function filtre(value, data){
 
 // Search with recipeIDMap
 export function filtreMap(value, data){
-    let ids = new Set([... data.get(value[0])])
+    const findKey = (map, val) => [...map.keys()].filter(n => n.includes(val));
+
+    let ids = new Set([... data.get(value[0])]);
     for(let i=0; i<value.length; i++){
+
+        let test = findKey(data,value[i]);
+        let resultTest = []
+        test.forEach((e)=>{
+            resultTest = new Set([...resultTest, ...data.get(e)])
+        });
+        console.log(resultTest)
+
         if(data.get(value[i])){
             let tempIds = new Set([... data.get(value[i])]);
             ids = new Set([...ids].filter(n=>tempIds.has(n)));

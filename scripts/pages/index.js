@@ -4,9 +4,9 @@ import { initSelect, displayErase } from "../factories/select.js";
 import { filtre, filtreMap } from "../factories/search.js";
 
 function showNumberOfRecipe(){
-    const recipeCard_elts = document.querySelectorAll(".recipeCard__selected");
+    const recipeCardSelected_elts = document.querySelectorAll(".recipeCard__selected");
     const recipeCount_elt = document.querySelector(".recipe-filter--result");
-    let length = recipeCard_elts.length;
+    let length = recipeCardSelected_elts.length;
     if(length===0){
         recipeCount_elt.textContent = `${length} recette`;
     }
@@ -45,7 +45,6 @@ function displayRecipesAfterSearch(e, data, test){
     const result = filtre(valueArray, data);
     if(test.get(valueArray[0])){
         const resultTest = filtreMap(valueArray, test);
-        console.log(resultTest)
     }
     displayRecipe(result);
     return result;
@@ -98,6 +97,11 @@ function createTagList(data, newData){
 
 function init(){
     const {ustensilsList, ingredientsList, applianceList, tagList, newData, recipeIDMap} = getRecipeCard(recipes);
+    let count = 0;
+    for(const id in newData){
+        count += newData[id].length
+    }
+    console.log(count)
     showNumberOfRecipe();
     initSelect("ingredients", ingredientsList);
     initSelect("appareils", applianceList);
