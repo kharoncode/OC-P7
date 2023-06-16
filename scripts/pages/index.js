@@ -43,8 +43,7 @@ function displayRecipesAfterSearch(e, data, test){
     let valueArray = e.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     if(valueArray.length<1){ valueArray[0]=""; }
     const result = filtre(valueArray, data);
-    const resultTest = filtreMap(valueArray, test);
-    console.log(resultTest)
+    /* const resultTest = filtreMap(valueArray, test); */
     displayRecipe(result);
     return result;
 }
