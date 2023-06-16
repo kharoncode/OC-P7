@@ -143,7 +143,6 @@ export function getRecipeCard(recipes){
         mapIdKeys[id]=keysList.join(' ');
     }
     
-    
     // Add Item List in Select
     ustensilsList = Array.from(ustensilsList).sort((a,b)=>{return a.localeCompare(b);});
     ingredientsList=Array.from(ingredientsList).sort((a,b)=>{return a.localeCompare(b);});

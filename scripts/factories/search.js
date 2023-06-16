@@ -1,4 +1,3 @@
-// Search with newData
 // with value return a list of id
 function returnRecipeID(value, data){
     let recipeSearchList = [];
@@ -20,7 +19,7 @@ function returnNewDataAfterSearch(ids,data){
     return newData;
 }
 
-// search for multi value
+// Search with mapIdKeys
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
         let ids = returnRecipeID(value[i],data);
@@ -33,40 +32,23 @@ export function filtre(value, data){
     }
 }
 
-// Search with recipeIDMap
+// Search with mapKeyIds
 export function filtreMap(value, data){
     const findKey = (map, val) => [...map.keys()].filter(n => n.includes(val));
-    /* const filteredMap = new Map ( `${[...data.keys()].filter(k => k.includes(value))}`, value);
-    console.log(filteredMap) */
-    let ids = new Set()
-    /* initValue.forEach((e)=>{ids.add(data.get(e))}) */
+    let ids = new Set();
+    findKey(data, value[0]).forEach((e)=>{data.get(e).forEach((id)=>{ids.add(id)})});
     for(let i=0; i<value.length; i++){
-        findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{ids.add(id)})});
-        
-        /* const mapTest = new Map(); */
-        /* let test = findKey(data,value[i]);
-        let resultTest = new Set()
-        test.forEach((e)=>{
-            data.get(e).forEach((id)=>{
-                resultTest.add(id);
-            })
-        }); */
-        if([...data.keys()].includes(value[i])){
-            console.log([...data.keys()].includes(value[i]))
+        if(findKey(data,value[i]).length>0){
             let tempsIds = new Set();
             findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{tempsIds.add(id)})});
-            /* let tempIds = new Set([... data.get(value[i])]); */
-
-            tempsIds.forEach((e)=>{
-                ids = new Set([...ids].filter(n=>e.has(ids)));
-            })
+            ids = new Set([...ids].filter(n=>[...tempsIds].includes(n)));
             if(i==(value.length-1)){
-                return ids;
+                return Array.from(ids);
             }else{
                 continue;
             }
         }else{
-            return ids;
+            return Array.from(ids);
         }
     }
 }
