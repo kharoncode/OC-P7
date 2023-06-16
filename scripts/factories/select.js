@@ -80,16 +80,16 @@ function removeTag(element){
 }
 
 // INIT
-export function initSelect(name, data){
+export function initSelect(name){
     const select_elt = document.querySelector(`.${name}-select`)
     const selectlist_elt = document.querySelector(`.${name}-select--list`);
     const selectArrow_elt = document.getElementById(`${name}Arrow`)
     const input_elt = document.getElementById(`${name}`);
     const inputErase_elt = document.getElementById(`${name}Erase`);
     const tagContainer_elt = document.querySelector('.recipes-tags');
-    getSelectTagList(data, selectlist_elt, tagContainer_elt, name);
+    /* getSelectTagList(data, selectlist_elt, tagContainer_elt, name); */
     const item_elts = document.querySelectorAll(`.${name}-item`)
-    const tagErase_elts = document.querySelectorAll('.btn-tag img');
+    /* const tagErase_elts = document.querySelectorAll('.btn-tag img'); */
     // add/remove Tag when clicling on select element
     for(let i=0; i<item_elts.length; i++){
         item_elts[i].addEventListener('click',(e)=>{
@@ -101,7 +101,7 @@ export function initSelect(name, data){
         }
     )}
     // remove Tag when clicking on the tag's cross
-    for (let i=0; i<tagErase_elts.length; i++){
+    /* for (let i=0; i<tagErase_elts.length; i++){
         tagErase_elts[i].addEventListener('click', (e)=>{
             e.target.parentElement.style.display = "none";
             e.target.parentElement.classList.remove('tag');
@@ -109,7 +109,7 @@ export function initSelect(name, data){
             id = id.replace('-erase','');
             document.getElementById(`${id}`).classList.remove('selected');
         })
-    }
+    } */
     input_elt.addEventListener('keyup', (e)=>{
         displayErase(inputErase_elt, e.target);
         showResultSelect(e.target.value, item_elts);

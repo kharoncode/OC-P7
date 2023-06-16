@@ -43,9 +43,8 @@ function displayRecipesAfterSearch(e, data, test){
     let valueArray = e.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     if(valueArray.length<1){ valueArray[0]=""; }
     const result = filtre(valueArray, data);
-    if(test.get(valueArray[0])){
-        const resultTest = filtreMap(valueArray, test);
-    }
+    const resultTest = filtreMap(valueArray, test);
+    console.log(resultTest)
     displayRecipe(result);
     return result;
 }
@@ -81,32 +80,33 @@ function initSearch(data, test){
         displayErase(searchInputErase_elt, e.target);
     });
     submitSearchButton.addEventListener('click', ()=>{
-        displayRecipesAfterSearch(searchInput_elt, data);
+        displayRecipesAfterSearch(searchInput_elt, data, test);
     })
 }
 
-function createTagList(data, newData){
-    let ustensilsList = [];
-    let ingredientsList = [];
-    let applianceList = [];
-    let tagList = new Map();
-    for(const recipe in data){
-        const {id, ingredients, appliance, ustensils} = data[recipe];
-    }
-}
-
 function init(){
-    const {ustensilsList, ingredientsList, applianceList, tagList, newData, recipeIDMap} = getRecipeCard(recipes);
+    const {tagList, mapIdKeys, mapKeyIds} = getRecipeCard(recipes);
     showNumberOfRecipe();
-    initSelect("ingredients", ingredientsList);
-    initSelect("appareils", applianceList);
-    initSelect("ustensiles", ustensilsList);
-    initSearch(newData, recipeIDMap);
+    initSelect("ingredients");
+    initSelect("appareils");
+    initSelect("ustensiles");
+    initSearch(mapIdKeys, mapKeyIds);
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
             displayRecipeWithTag(tagList);
         });
+    }
+    const tagErase_elts = document.querySelectorAll('.btn-tag img');
+    for (let i=0; i<tagErase_elts.length; i++){
+        tagErase_elts[i].addEventListener('click', (e)=>{
+            e.target.parentElement.style.display = "none";
+            e.target.parentElement.classList.remove('tag');
+            let id = e.target.id.replace('tag','select');
+            id = id.replace('-erase','');
+            document.getElementById(`${id}`).classList.remove('selected');
+            displayRecipeWithTag(tagList);
+        })
     }
 }
 

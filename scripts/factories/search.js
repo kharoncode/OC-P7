@@ -38,23 +38,28 @@ export function filtreMap(value, data){
     const findKey = (map, val) => [...map.keys()].filter(n => n.includes(val));
     /* const filteredMap = new Map ( `${[...data.keys()].filter(k => k.includes(value))}`, value);
     console.log(filteredMap) */
-
-    let ids = new Set([... data.get(value[0])]);
+    let ids = new Set()
+    /* initValue.forEach((e)=>{ids.add(data.get(e))}) */
     for(let i=0; i<value.length; i++){
-        const mapTest = new Map();
-        let test = findKey(data,value[i]);
+        findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{ids.add(id)})});
+        
+        /* const mapTest = new Map(); */
+        /* let test = findKey(data,value[i]);
         let resultTest = new Set()
         test.forEach((e)=>{
-            mapTest.set(e, data.get(e));
-            data.get(e).forEach((ids)=>{
-                resultTest.add(ids);
+            data.get(e).forEach((id)=>{
+                resultTest.add(id);
             })
-        });
-        console.log(mapTest)
+        }); */
+        if([...data.keys()].includes(value[i])){
+            console.log([...data.keys()].includes(value[i]))
+            let tempsIds = new Set();
+            findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{tempsIds.add(id)})});
+            /* let tempIds = new Set([... data.get(value[i])]); */
 
-        if(data.get(value[i])){
-            let tempIds = new Set([... data.get(value[i])]);
-            ids = new Set([...ids].filter(n=>tempIds.has(n)));
+            tempsIds.forEach((e)=>{
+                ids = new Set([...ids].filter(n=>e.has(ids)));
+            })
             if(i==(value.length-1)){
                 return ids;
             }else{
