@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { filtre, filtreMap } from "../factories/search.js";
+import { filtre, filtreMap, filtreMapBis, filtreMapTer } from "../factories/search.js";
 
 function showNumberOfRecipe(){
     const recipeCardSelected_elts = document.querySelectorAll(".recipeCard__selected");
@@ -48,11 +48,18 @@ function displayRecipesAfterSearch(e, data, test){
         let test = filtre(valueArray, data);
     }
     console.timeEnd("IdKeys")
+
     console.time("KeyIds")
     for(let i=0; i<10000; i++){
         let resultTest = filtreMap(valueArray, test);
     }
     console.timeEnd("KeyIds") */
+    
+    /* console.time("KeyIdsBis")
+    for(let i=0; i<100; i++){
+        let resultTest = filtreMapBis(valueArray, test);
+    }
+    console.timeEnd("KeyIdsBis") */
     
     const result = filtre(valueArray, data);
     displayRecipe(result);

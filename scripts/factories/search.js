@@ -38,10 +38,11 @@ export function filtreMap(value, data){
     let ids = new Set();
     findKey(data, value[0]).forEach((e)=>{data.get(e).forEach((id)=>{ids.add(id)})});
     for(let i=0; i<value.length; i++){
+
         if(findKey(data,value[i]).length>0){
-            let tempsIds = new Set();
-            findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{tempsIds.add(id)})});
-            ids = new Set([...ids].filter(n=>[...tempsIds].includes(n)));
+            let tempIds = new Set();
+            findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{tempIds.add(id)})});
+            ids = new Set([...ids].filter(n=>[...tempIds].includes(n)));
             if(i==(value.length-1)){
                 return Array.from(ids);
             }else{
@@ -51,4 +52,50 @@ export function filtreMap(value, data){
             return Array.from(ids);
         }
     }
+}
+
+// Search with mapKeyIds startsWith()
+export function filtreMapBis(value, data){
+    let ids = new Set();
+    for(let i=0; i<value.length; i++){
+        for(const keyValue of data){
+            if(keyValue[0].startsWith(value[i])){
+                if(i===0){
+                    keyValue[1].forEach((id)=>{ids.add(id)});
+                } else{
+                    const tempIds = new Set();
+                    keyValue[1].forEach((id)=>{tempIds.add(id)});
+                    ids.forEach((id)=>{
+                        if(!tempIds.has(id)){
+                            ids.delete(id);     
+                        }
+                    })
+                } 
+            }
+        }
+    }
+    console.log(ids)
+    return ids;
+}
+
+// Search with mapKeyIds includes()
+export function filtreMapTer(value, data){
+    let ids = new Set();
+    for(let i=0; i<value.length; i++){
+        for(const keyValue of data){
+            if(keyValue[0].includes(value[i])){
+                if(i===0){
+                    keyValue[1].forEach((id)=>{ids.add(id)});
+                } else{
+                    const tempIds = keyValue[1];
+                    ids.forEach((id)=>{
+                        if(!tempIds.includes(`${id}`)){
+                            ids.delete(id);
+                        }
+                    })
+                } 
+            }
+        }
+    }
+    return Array.from(ids);
 }
