@@ -11,7 +11,7 @@ function returnRecipeID(value, data){
 }
 
 // with id create a new data base
-function returnNewDataAfterSearch(ids,data){
+export function returnNewDataAfterSearch(ids,data){
     let newData = {};
     for(let i=0; i<ids.length; i++){
         newData[ids[i]]=data[ids[i]];
@@ -38,7 +38,6 @@ export function filtreMap(value, data){
     let ids = new Set();
     findKey(data, value[0]).forEach((e)=>{data.get(e).forEach((id)=>{ids.add(id)})});
     for(let i=0; i<value.length; i++){
-
         if(findKey(data,value[i]).length>0){
             let tempIds = new Set();
             findKey(data, value[i]).forEach((e)=>{data.get(e).forEach((id)=>{tempIds.add(id)})});
@@ -58,23 +57,31 @@ export function filtreMap(value, data){
 export function filtreMapBis(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
+        let tempIds = new Set();
+        let test = new Set();
         for(const keyValue of data){
             if(keyValue[0].startsWith(value[i])){
                 if(i===0){
-                    keyValue[1].forEach((id)=>{ids.add(id)});
+                    keyValue[1].forEach((id)=>{ids.add(id)});                  
                 } else{
-                    const tempIds = new Set();
                     keyValue[1].forEach((id)=>{tempIds.add(id)});
-                    ids.forEach((id)=>{
+                    /* ids.forEach((id)=>{
                         if(!tempIds.has(id)){
                             ids.delete(id);     
                         }
-                    })
+                    }) */
+                }
+                if(value.length>1){
+                    tempIds.forEach((id)=>{
+                        if(ids.has(id)){
+                            test.add(id);     
+                        }
+                    });
+                    ids = test;
                 } 
             }
         }
     }
-    console.log(ids)
     return ids;
 }
 
@@ -82,20 +89,30 @@ export function filtreMapBis(value, data){
 export function filtreMapTer(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
+        let tempIds = new Set();
+        let test = new Set();
         for(const keyValue of data){
             if(keyValue[0].includes(value[i])){
                 if(i===0){
                     keyValue[1].forEach((id)=>{ids.add(id)});
                 } else{
-                    const tempIds = keyValue[1];
-                    ids.forEach((id)=>{
-                        if(!tempIds.includes(`${id}`)){
-                            ids.delete(id);
+                    keyValue[1].forEach((id)=>{tempIds.add(id)});
+                    /* ids.forEach((id)=>{
+                        if(!tempIds.has(id)){
+                            ids.delete(id);     
                         }
-                    })
+                    }) */
+                }
+                if(value.length>1){
+                    tempIds.forEach((id)=>{
+                        if(ids.has(id)){
+                            test.add(id);     
+                        }
+                        console.log(test);
+                    });
                 } 
             }
         }
     }
-    return Array.from(ids);
+    return ids
 }

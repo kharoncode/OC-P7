@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { filtre, filtreMap, filtreMapBis, filtreMapTer } from "../factories/search.js";
+import { filtre, filtreMap, filtreMapBis, filtreMapTer, returnNewDataAfterSearch } from "../factories/search.js";
 
 function showNumberOfRecipe(){
     const recipeCardSelected_elts = document.querySelectorAll(".recipeCard__selected");
@@ -60,59 +60,37 @@ function displayRecipesAfterSearch(e, data, test){
         let resultTest = filtreMapBis(valueArray, test);
     }
     console.timeEnd("KeyIdsBis") */
-    
+
     const result = filtre(valueArray, data);
     displayRecipe(result);
 }
 
 function displayRecipeWithTag (tagList){
     const tag_elts = document.querySelectorAll('.tag');
+    let selectedRecipes = new Set();
     if(tag_elts.length !== 0){
-        let selectedRecipes = [];
         for(let i=0; i<tag_elts.length; i++){
             let value = tag_elts[i].textContent;
             let recipes = tagList.get(value);
-            for (let j=0; j<recipes.length; j++){
-                selectedRecipes.push(recipes[j]);
-            }
+            recipes.forEach((e)=>{selectedRecipes.add(e)})
         }
-        selectedRecipes=[...new Set(selectedRecipes)]
-        displayRecipe(selectedRecipes)
+        selectedRecipes = Array.from(selectedRecipes)
+        displayRecipe(selectedRecipes);
+        return(selectedRecipes);
     } else {
         resetDisplayRecipe()
+        return [];
     }
 }
 
-function initSearch(data, test){
-    const searchInput_elt = document.getElementById('search');
-    const searchInputErase_elt = document.getElementById('searchErase');
-    const submitSearchButton = document.getElementById('submitSearch');
-    searchInput_elt.addEventListener('keyup', (e)=>{
-        if(e.target.value.length>2){
-            displayRecipesAfterSearch(e.target, data, test);
-        }else{
-            resetDisplayRecipe();
-        }
-        displayErase(searchInputErase_elt, e.target);
-    });
-    submitSearchButton.addEventListener('click', ()=>{
-        displayRecipesAfterSearch(searchInput_elt, data, test);
-    })
-}
-
-function init(){
-    const {tagList, mapIdKeys, mapKeyIds} = getRecipeCard(recipes);
-    showNumberOfRecipe();
-    initSelect("ingredients");
-    initSelect("appareils");
-    initSelect("ustensiles");
-    initSearch(mapIdKeys, mapKeyIds);
+function initTag(tagList){
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
             displayRecipeWithTag(tagList);
         });
     }
+
     const tagErase_elts = document.querySelectorAll('.btn-tag img');
     for (let i=0; i<tagErase_elts.length; i++){
         tagErase_elts[i].addEventListener('click', (e)=>{
@@ -124,6 +102,56 @@ function init(){
             displayRecipeWithTag(tagList);
         })
     }
+}
+
+function initSearch(data, test, tagList){
+    const searchInput_elt = document.getElementById('search');
+    const searchInputErase_elt = document.getElementById('searchErase');
+    const submitSearchButton = document.getElementById('submitSearch');
+    searchInput_elt.addEventListener('keyup', (e)=>{
+        if(e.target.value.length>2){
+            displayRecipesAfterSearch(e.target, data, test);
+        }else{
+                resetDisplayRecipe();
+            }
+        displayErase(searchInputErase_elt, e.target);
+    });
+    submitSearchButton.addEventListener('click', ()=>{
+        displayRecipesAfterSearch(searchInput_elt, data, test);
+    })
+
+    /* const selectedRecipe_elts = document.querySelectorAll('.recipeCard__selected');
+        console.log(selectedRecipe_elts.length)
+        let newSet = []
+        for(let i=0; i<selectedRecipe_elts.length; i++){
+            newSet.push(selectedRecipe_elts[i].id.replace('recette-',''))
+        }
+        data = returnNewDataAfterSearch(newSet,data);
+        console.log(data);
+
+        if(e.target.value.length>2){
+            displayRecipesAfterSearch(e.target, data, test);
+        }else{
+            const tag_elts = document.querySelectorAll('.tag');
+            if(tag_elts.length!==0){
+                displayRecipeWithTag(tagList);
+            }else{
+                resetDisplayRecipe();
+            }
+        }
+        displayErase(searchInputErase_elt, e.target); */
+
+
+}
+
+function init(){
+    const {tagList, mapIdKeys, mapKeyIds} = getRecipeCard(recipes);
+    showNumberOfRecipe();
+    initSelect("ingredients");
+    initSelect("appareils");
+    initSelect("ustensiles");
+    initTag(tagList);
+    initSearch(mapIdKeys, mapKeyIds, tagList);
 }
 
 init();

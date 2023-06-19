@@ -13,12 +13,12 @@ const recipesContainer_elt = document.querySelector('.recipesContainer');
 } */
 
 function addIDToMap(mapElt, key, id){
-    if(mapElt.has(`${key}`)){
-        let temp = mapElt.get(`${key}`);
-        temp.push(`${id}`);
-        mapElt.set(`${key}`,temp)
+    if(mapElt.has(key)){
+        let temp = mapElt.get(key);
+        temp.add(id);
+        mapElt.set(key,temp)
     }else{
-        mapElt.set(`${key}`,[`${id}`])
+        mapElt.set(key,new Set([id]))
     }
 }
 
@@ -141,7 +141,8 @@ export function getRecipeCard(recipes){
             addIDToMap(mapKeyIds, keysList[i], id);
         }
         mapIdKeys[id]=keysList.join(' ');
-    }
+
+    };
     
     // Add Item List in Select
     ustensilsList = Array.from(ustensilsList).sort((a,b)=>{return a.localeCompare(b);});
