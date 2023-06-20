@@ -1,9 +1,9 @@
 // with value return a list of id
 function returnRecipeID(value, data){
-    let recipeSearchList = [];
+    let recipeSearchList = new Set();
     for(const id in data){
         if(data[id].includes(value)){
-            recipeSearchList.push(id);
+            recipeSearchList.add(id);
             continue;
         }
     }
@@ -13,9 +13,12 @@ function returnRecipeID(value, data){
 // with id create a new data base
 export function returnNewDataAfterSearch(ids,data){
     let newData = {};
-    for(let i=0; i<ids.length; i++){
+    ids.forEach((id)=>{
+        newData[id]=data[id];
+    })
+    /* for(let i=0; i<ids.length; i++){
         newData[ids[i]]=data[ids[i]];
-    }
+    } */
     return newData;
 }
 
@@ -23,7 +26,7 @@ export function returnNewDataAfterSearch(ids,data){
 export function filtre(value, data){
     for(let i=0; i<value.length; i++){
         let ids = returnRecipeID(value[i],data);
-        if(i==(value.length-1)){
+        if(i===(value.length-1)){
             return ids;
         }else{
             data = returnNewDataAfterSearch(ids,data);
@@ -108,7 +111,6 @@ export function filtreMapTer(value, data){
                         if(ids.has(id)){
                             test.add(id);     
                         }
-                        console.log(test);
                     });
                 } 
             }

@@ -1,13 +1,4 @@
 // SELECT
-function getSelectTagList(data, select_elt, tag_elt, name){
-    for(let i=0; i<data.length; i++){
-        let select_html = `<li id="${name}-select-${i}" class="${name}-item">${data[i]}</li>`;
-        select_elt.insertAdjacentHTML('beforeend' , select_html);
-        let tag_html = `<div id="${name}-tag-${i}" class="btn btn-tag"><p>${data[i]}</p><img id="${name}-tag-${i}-erase" src="assets/icones/erase_tag.svg" alt="Effacer"></div>`;
-        tag_elt.insertAdjacentHTML('beforeend' , tag_html);
-    }
-}
-
 function openCloseSelect(container, e){
     if(container.getAttribute("open") === "true"){
             container.style.height = "53px"
@@ -27,24 +18,6 @@ export function displayErase(erase_elt, input_elt){
     }else{
         erase_elt.style.display = "none";
     }
-    erase_elt.addEventListener('click', ()=>{
-        if(erase_elt.style.display === "block"){
-            input_elt.value="";
-            erase_elt.style.display = "none";
-            const none_elts = document.querySelectorAll('.none');
-            for(let i=0; i<none_elts.length; i++){
-                none_elts[i].classList.remove('none');
-            }
-            input_elt.focus()
-            if(input_elt=document.getElementById('search')){
-                const recipeCard_elts = document.querySelectorAll('.recipeCard');
-                for(let i=0; i<recipeCard_elts.length; i++){
-                    recipeCard_elts[i].classList.add("recipeCard__selected");
-                    document.querySelector(".recipe-filter--result").textContent = `${recipeCard_elts.length} recettes`;
-                }
-            }
-        }
-    })
 }
 
 // SEARCH
@@ -80,19 +53,35 @@ function removeTag(element){
 }
 
 // INIT
-export function initSelect(name){
-    const select_elt = document.querySelector(`.${name}-select`)
-    const selectlist_elt = document.querySelector(`.${name}-select--list`);
-    const selectArrow_elt = document.getElementById(`${name}Arrow`)
-    const input_elt = document.getElementById(`${name}`);
-    const inputErase_elt = document.getElementById(`${name}Erase`);
-    const tagContainer_elt = document.querySelector('.recipes-tags');
-    /* getSelectTagList(data, selectlist_elt, tagContainer_elt, name); */
-    const item_elts = document.querySelectorAll(`.${name}-item`)
-    /* const tagErase_elts = document.querySelectorAll('.btn-tag img'); */
-    // add/remove Tag when clicling on select element
-    for(let i=0; i<item_elts.length; i++){
-        item_elts[i].addEventListener('click',(e)=>{
+export function initSelect(){
+    const names = ["ingredients","appareils","ustensiles"];
+    for(let i=0; i<names.length; i++){
+        const select_elt = document.querySelector(`.${names[i]}-select`);
+        const selectArrow_elt = document.getElementById(`${names[i]}Arrow`);
+        const input_elt = document.getElementById(`${names[i]}`);
+        const inputErase_elt = document.getElementById(`${names[i]}Erase`);
+        const item_elts = document.querySelectorAll(`.${names[i]}-item`);
+        input_elt.addEventListener('keyup', (e)=>{
+            displayErase(inputErase_elt, e.target);
+            showResultSelect(e.target.value, item_elts);
+        });
+        selectArrow_elt.addEventListener('click', (e)=>{
+            openCloseSelect(select_elt, e.target)});
+        inputErase_elt.addEventListener('click', (e)=>{
+            if(e.target.style.display === "block"){
+                input_elt.value="";
+                e.target.style.display = "none";
+                const none_elts = document.querySelectorAll('.none');
+                for(let i=0; i<none_elts.length; i++){
+                    none_elts[i].classList.remove('none');
+                }
+                input_elt.focus()
+            }
+        })
+    }
+    const selectItem_elts = document.querySelectorAll(`.select-item`)
+    for(let i=0; i<selectItem_elts.length; i++){
+        selectItem_elts[i].addEventListener('click',(e)=>{
             if(e.target.matches('.selected')){
                 removeTag(e.target);
             }else{
@@ -100,20 +89,4 @@ export function initSelect(name){
             }
         }
     )}
-    // remove Tag when clicking on the tag's cross
-    /* for (let i=0; i<tagErase_elts.length; i++){
-        tagErase_elts[i].addEventListener('click', (e)=>{
-            e.target.parentElement.style.display = "none";
-            e.target.parentElement.classList.remove('tag');
-            let id = e.target.id.replace('tag','select');
-            id = id.replace('-erase','');
-            document.getElementById(`${id}`).classList.remove('selected');
-        })
-    } */
-    input_elt.addEventListener('keyup', (e)=>{
-        displayErase(inputErase_elt, e.target);
-        showResultSelect(e.target.value, item_elts);
-    });
-    selectArrow_elt.addEventListener('click', (e)=>{
-        openCloseSelect(select_elt, e.target)});
 }
