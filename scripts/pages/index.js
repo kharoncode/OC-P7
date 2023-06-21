@@ -51,7 +51,7 @@ function getIdOfSelectedRecipe(data, tagList, test){
     const selectedRecipes_search = filtre(valueArray, data);
 
     // TEST
-    console.time("testList")
+    /* console.time("testList")
     for(let i=0; i<10000; i++){
         const testList = filtre(valueArray, test);
     }
@@ -67,7 +67,7 @@ function getIdOfSelectedRecipe(data, tagList, test){
     for(let i=0; i<10000; i++){
         const testMapBis = filtreMapBis(valueArray, test);
     }
-    console.timeEnd("testMapBis")
+    console.timeEnd("testMapBis") */
 
     // RESULT
     if(tag_elts.length!==0){
