@@ -16,9 +16,6 @@ export function returnNewDataAfterSearch(ids,data){
     ids.forEach((id)=>{
         newData[id]=data[id];
     })
-    /* for(let i=0; i<ids.length; i++){
-        newData[ids[i]]=data[ids[i]];
-    } */
     return newData;
 }
 
@@ -60,61 +57,21 @@ export function filtreMap(value, data){
 export function filtreMapBis(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
-        let tempIds = new Set();
-        let test = new Set();
         for(const keyValue of data){
             if(keyValue[0].startsWith(value[i])){
                 if(i===0){
                     keyValue[1].forEach((id)=>{ids.add(id)});                  
                 } else{
+                    let tempIds = new Set();
                     keyValue[1].forEach((id)=>{tempIds.add(id)});
-                    /* ids.forEach((id)=>{
-                        if(!tempIds.has(id)){
+                    ids.forEach((id)=>{
+                        if(tempIds.has(id)===false){
                             ids.delete(id);     
                         }
-                    }) */
+                    })
                 }
-                if(value.length>1){
-                    tempIds.forEach((id)=>{
-                        if(ids.has(id)){
-                            test.add(id);     
-                        }
-                    });
-                    ids = test;
-                } 
             }
         }
     }
     return ids;
-}
-
-// Search with mapKeyIds includes()
-export function filtreMapTer(value, data){
-    let ids = new Set();
-    for(let i=0; i<value.length; i++){
-        let tempIds = new Set();
-        let test = new Set();
-        for(const keyValue of data){
-            if(keyValue[0].includes(value[i])){
-                if(i===0){
-                    keyValue[1].forEach((id)=>{ids.add(id)});
-                } else{
-                    keyValue[1].forEach((id)=>{tempIds.add(id)});
-                    /* ids.forEach((id)=>{
-                        if(!tempIds.has(id)){
-                            ids.delete(id);     
-                        }
-                    }) */
-                }
-                if(value.length>1){
-                    tempIds.forEach((id)=>{
-                        if(ids.has(id)){
-                            test.add(id);     
-                        }
-                    });
-                } 
-            }
-        }
-    }
-    return ids
 }

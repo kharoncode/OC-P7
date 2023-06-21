@@ -32,7 +32,7 @@ function removeAccents (str){
 
 function addTagSelectElt(data, dataFormat,category){
     const selectContainer_elt = document.querySelector(`.${category}-select--list`);
-    const tagContainer_elt = document.querySelector('.recipes-tags');
+    const tagContainer_elt = document.querySelector('.tagsContainer');
     let select_html = `<li id="${dataFormat}-select" class="${category}-item select-item">${data}</li>`;
     selectContainer_elt.insertAdjacentHTML('beforeend' , select_html);
     let tag_html = `<div id="${dataFormat}-tag" class="btn btn-tag"><p>${data}</p><img id="${dataFormat}-tag-erase" src="assets/icones/erase_tag.svg" alt="Effacer"></div>`;

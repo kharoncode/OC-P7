@@ -42,13 +42,11 @@ function showResultSelect(value, items){
 function addTag(element){
     element.classList.add('selected');
     let id = element.id.replace('select','tag');
-    document.getElementById(`${id}`).style.display = "flex";
     document.getElementById(`${id}`).classList.add('tag');
 }
 function removeTag(element){
     element.classList.remove('selected');
     let id = element.id.replace('select','tag');
-    document.getElementById(`${id}`).style.display = "none";
     document.getElementById(`${id}`).classList.remove('tag');
 }
 

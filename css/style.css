@@ -213,6 +213,10 @@ ul {
   font-weight: 700;
 }
 
+.tag {
+  display: flex;
+}
+
 /* PAGES */
 /* INDEX */
 /* BODY */
@@ -334,7 +338,7 @@ main {
   font-family: "Anton", sans-serif;
 }
 
-.recipes-tags {
+.tagsContainer {
   display: flex;
   flex-wrap: wrap;
   padding: 21px 0 43px 0;

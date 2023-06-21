@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, } from "../factories/recipe.js";
 import { initSelect, displayErase } from "../factories/select.js";
-import { filtre, filtreMap, filtreMapBis, filtreMapTer, returnNewDataAfterSearch } from "../factories/search.js";
+import { filtre, filtreMap, filtreMapBis } from "../factories/search.js";
 
 function showNumberOfRecipe(){
     const selectedRecipe_elts = document.querySelectorAll(".recipeCard__selected");
@@ -20,7 +20,8 @@ function showNumberOfRecipe(){
     }
 }
 
-function getIdOfSelectedRecipe(e, data, tagList){
+function getIdOfSelectedRecipe(data, tagList, test){
+
     let selectedRecipes_list = new Set();
 
     // TAG
@@ -28,15 +29,45 @@ function getIdOfSelectedRecipe(e, data, tagList){
     const tag_elts = document.querySelectorAll('.tag');
     if(tag_elts.length !== 0){
         for(let i=0; i<tag_elts.length; i++){
+            let tempIds = new Set();
             let recipes = tagList.get(tag_elts[i].textContent);
-            recipes.forEach((e)=>{selectedRecipes_tags.add(`${e}`)})
+            recipes.forEach((e)=>{tempIds.add(`${e}`)})
+            if(i===0){
+                tempIds.forEach((id)=>{selectedRecipes_tags.add(id)});
+            }else{
+                selectedRecipes_tags.forEach((id)=>{
+                    if(tempIds.has(id)===false){
+                        selectedRecipes_tags.delete(id);
+                    }
+                })
+            }
         }
     }
 
     // SEARCH
-    let valueArray = e.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
+    const searchInput_elt = document.getElementById('search');
+    let valueArray = searchInput_elt.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     if(valueArray.length<1){ valueArray[0]=""; };
     const selectedRecipes_search = filtre(valueArray, data);
+
+    // TEST
+    console.time("testList")
+    for(let i=0; i<10000; i++){
+        const testList = filtre(valueArray, test);
+    }
+    console.timeEnd("testList")
+
+    console.time("testMap")
+    for(let i=0; i<10000; i++){
+        const testMap = filtreMap(valueArray, test);
+    }
+    console.timeEnd("testMap")
+
+    console.time("testMapBis")
+    for(let i=0; i<10000; i++){
+        const testMapBis = filtreMapBis(valueArray, test);
+    }
+    console.timeEnd("testMapBis")
 
     // RESULT
     if(tag_elts.length!==0){
@@ -45,9 +76,9 @@ function getIdOfSelectedRecipe(e, data, tagList){
                 selectedRecipes_list.add(id)
             }
         })
-        console.log(selectedRecipes_list)
+        displayRecipe(selectedRecipes_list);
     }else{
-        console.log(selectedRecipes_search)
+        displayRecipe(selectedRecipes_search);
     }
 }
 
@@ -56,9 +87,9 @@ function displayRecipe(selectedRecipe_ids){
     for(let i=0; i<recipeCard_elts.length; i++){
         recipeCard_elts[i].classList.remove("recipeCard__selected");
     }
-    for(let i=0; i<selectedRecipe_ids.length; i++){
-        document.getElementById(`recette-${selectedRecipe_ids[i]}`).classList.add("recipeCard__selected")
-    }
+    selectedRecipe_ids.forEach((id)=>{
+        document.getElementById(`recette-${id}`).classList.add("recipeCard__selected");
+    })
     showNumberOfRecipe();
 }
 
@@ -70,116 +101,57 @@ function resetDisplayRecipe(){
     showNumberOfRecipe();
 }
 
-function displayRecipesAfterSearch(e, data, test){
-    let valueArray = e.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
-    if(valueArray.length<1){ valueArray[0]=""; };
-
-    /* console.time("IdKeys")
-    for(let i=0; i<10000; i++){
-        let test = filtre(valueArray, data);
-    }
-    console.timeEnd("IdKeys")
-
-    console.time("KeyIds")
-    for(let i=0; i<10000; i++){
-        let resultTest = filtreMap(valueArray, test);
-    }
-    console.timeEnd("KeyIds") */
-    
-    /* console.time("KeyIdsBis")
-    for(let i=0; i<100; i++){
-        let resultTest = filtreMapBis(valueArray, test);
-    }
-    console.timeEnd("KeyIdsBis") */
-
-    const result = Array.from(filtre(valueArray, data));
-    displayRecipe(result);
-}
-
-function displayRecipeWithTag (tagList){
-    const tag_elts = document.querySelectorAll('.tag');
-    let selectedRecipes = new Set();
-    if(tag_elts.length !== 0){
-        for(let i=0; i<tag_elts.length; i++){
-            let value = tag_elts[i].textContent;
-            let recipes = tagList.get(value);
-            recipes.forEach((e)=>{selectedRecipes.add(e)})
-        }
-        selectedRecipes = Array.from(selectedRecipes)
-        displayRecipe(selectedRecipes);
-    } else {
-        resetDisplayRecipe()
-    }
-}
-
-function initTag(tagList){
+function initTag(tagList, data){
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
-            displayRecipeWithTag(tagList);
+            getIdOfSelectedRecipe(data, tagList)
         });
     }
 
     const tagErase_elts = document.querySelectorAll('.btn-tag img');
     for (let i=0; i<tagErase_elts.length; i++){
         tagErase_elts[i].addEventListener('click', (e)=>{
-            e.target.parentElement.style.display = "none";
             e.target.parentElement.classList.remove('tag');
             let id = e.target.id.replace('tag','select');
             id = id.replace('-erase','');
             document.getElementById(`${id}`).classList.remove('selected');
-            displayRecipeWithTag(tagList);
+            getIdOfSelectedRecipe(data, tagList);
         })
     }
 }
 
-function initSearch(data, test, tagList){
+function initSearch(data,tagList, test){
     const searchInput_elt = document.getElementById('search');
     const searchInputErase_elt = document.getElementById('searchErase');
     const submitSearchButton = document.getElementById('submitSearch');
     searchInput_elt.addEventListener('keyup', (e)=>{
         if(e.target.value.length>2){
-            displayRecipesAfterSearch(e.target, data, test);
-            getIdOfSelectedRecipe(e.target, data, tagList)
+            getIdOfSelectedRecipe(data, tagList, test)
         }else{
                 resetDisplayRecipe();
             }
         displayErase(searchInputErase_elt, e.target);
     });
     submitSearchButton.addEventListener('click', ()=>{
-        displayRecipesAfterSearch(searchInput_elt, data, test);
+        getIdOfSelectedRecipe(data, tagList, test);
     })
-
-    /* const selectedRecipe_elts = document.querySelectorAll('.recipeCard__selected');
-        console.log(selectedRecipe_elts.length)
-        let newSet = []
-        for(let i=0; i<selectedRecipe_elts.length; i++){
-            newSet.push(selectedRecipe_elts[i].id.replace('recette-',''))
+    searchInputErase_elt.addEventListener('click', (e)=>{
+        if(e.target.style.display === "block"){
+            searchInput_elt.value="";
+            e.target.style.display = "none";
+            searchInput_elt.focus();
         }
-        data = returnNewDataAfterSearch(newSet,data);
-        console.log(data);
-
-        if(e.target.value.length>2){
-            displayRecipesAfterSearch(e.target, data, test);
-        }else{
-            const tag_elts = document.querySelectorAll('.tag');
-            if(tag_elts.length!==0){
-                displayRecipeWithTag(tagList);
-            }else{
-                resetDisplayRecipe();
-            }
-        }
-        displayErase(searchInputErase_elt, e.target); */
-
-
+        getIdOfSelectedRecipe(data, tagList);
+    })
 }
 
 function init(){
     const {tagList, mapIdKeys, mapKeyIds} = getRecipeCard(recipes);
     showNumberOfRecipe();
     initSelect();
-    initTag(tagList);
-    initSearch(mapIdKeys, mapKeyIds, tagList);
+    initTag(tagList, mapIdKeys);
+    initSearch(mapIdKeys, tagList, mapKeyIds);
 }
 
 init();
