@@ -57,20 +57,22 @@ export function filtreMap(value, data){
 export function filtreMapBis(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
+        let tempIds = new Set();
         for(const keyValue of data){
             if(keyValue[0].startsWith(value[i])){
                 if(i===0){
                     keyValue[1].forEach((id)=>{ids.add(id)});                  
                 } else{
-                    let tempIds = new Set();
-                    keyValue[1].forEach((id)=>{tempIds.add(id)});
-                    ids.forEach((id)=>{
-                        if(tempIds.has(id)===false){
-                            ids.delete(id);     
-                        }
-                    })
+                    keyValue[1].forEach((id)=>{tempIds.add(id)});               
                 }
             }
+        }
+        if(i>0){
+            ids.forEach((id)=>{
+                if(tempIds.has(id)===false){
+                    ids.delete(id);     
+                }
+            })
         }
     }
     return ids;
