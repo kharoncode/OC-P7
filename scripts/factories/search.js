@@ -69,7 +69,7 @@ export function filtreMapBis(value, data){
         }
         if(i>0){
             ids.forEach((id)=>{
-                if(tempIds.has(id)===false){
+                if(!tempIds.has(id)){
                     ids.delete(id);     
                 }
             })

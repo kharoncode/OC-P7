@@ -22,10 +22,6 @@ function addIDToMap(mapElt, key, id){
     }
 }
 
-function formatData (data){
-    return data.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
 function removeAccents (str){
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');}
 
@@ -43,13 +39,15 @@ export function getRecipeCard(recipes){
     let ustensilsList = new Set();
     let ingredientsList = new Set();
     let applianceList = new Set();
-    let tagList = new Map(); //
+    let tagList = new Map(); 
 
     let mapKeyIds = new Map();
     let mapIdKeys = {};
-    for(const recipe in recipes){
+    let rawData = {};
+    for(const recipe of recipes){
         //Recipe
-        const {id, image, name, ingredients, time, description, appliance, ustensils} = recipes[recipe];
+        const {id, image, name, ingredients, time, description, appliance, ustensils} = recipe;
+        rawData[id] = recipe;
         // Init Map
         let keysList = new Set();
         // Name Map
