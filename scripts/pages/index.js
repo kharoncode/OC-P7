@@ -20,10 +20,8 @@ function showNumberOfRecipe(){
     }
 }
 
-function getIdOfSelectedRecipe(data, tagList, test){
-
+function getIdOfSelectedRecipe(data, tagList, tagListById){
     let selectedRecipes_list = new Set();
-
     // TAG
     let selectedRecipes_tags = new Set();
     const tag_elts = document.querySelectorAll('.tag');
@@ -43,7 +41,6 @@ function getIdOfSelectedRecipe(data, tagList, test){
             }
         }
     }
-
     // SEARCH
     const searchInput_elt = document.getElementById('search');
     let valueArray = searchInput_elt.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
@@ -77,8 +74,10 @@ function getIdOfSelectedRecipe(data, tagList, test){
             }
         })
         displayRecipe(selectedRecipes_list);
+        filterSelectItemsAfterSearch(selectedRecipes_list, tagListById)
     }else{
         displayRecipe(selectedRecipes_search);
+        filterSelectItemsAfterSearch(selectedRecipes_search, tagListById)
     }
 }
 
@@ -101,11 +100,48 @@ function resetDisplayRecipe(){
     showNumberOfRecipe();
 }
 
-function initTag(tagList, data){
+function filterSelectItemsAfterSearch(selectedRecipes_list, data){
+    const selectItem_elts = document.querySelectorAll(".select-item");
+    for(let i=0; i<selectItem_elts.length; i++){
+        selectItem_elts[i].classList.add('none');
+    }
+    selectedRecipes_list.forEach((id)=>{
+        data[id].forEach((e)=>{
+            document.getElementById(`${e}-select`).classList.remove('none');
+        })
+    })
+}
+
+
+function initSearch(data, tagList, tagListById){
+    const searchInput_elt = document.getElementById('search');
+    const searchInputErase_elt = document.getElementById('searchErase');
+    const submitSearchButton = document.getElementById('submitSearch');
+
+    searchInput_elt.addEventListener('keyup', (e)=>{
+        if(e.target.value.length>2){
+            getIdOfSelectedRecipe(data, tagList, tagListById)
+        }else{
+                resetDisplayRecipe();
+            }
+        displayErase(searchInputErase_elt, e.target);
+    });
+    submitSearchButton.addEventListener('click', ()=>{
+        getIdOfSelectedRecipe(data, tagList, tagListById);
+    })
+    searchInputErase_elt.addEventListener('click', (e)=>{
+        if(e.target.style.display === "block"){
+            searchInput_elt.value="";
+            e.target.style.display = "none";
+            searchInput_elt.focus();
+        }
+        getIdOfSelectedRecipe(data, tagList, tagListById);
+    })
+
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
-            getIdOfSelectedRecipe(data, tagList)
+            getIdOfSelectedRecipe(data, tagList, tagListById)
         });
     }
 
@@ -116,42 +152,16 @@ function initTag(tagList, data){
             let id = e.target.id.replace('tag','select');
             id = id.replace('-erase','');
             document.getElementById(`${id}`).classList.remove('selected');
-            getIdOfSelectedRecipe(data, tagList);
+            getIdOfSelectedRecipe(data, tagList, tagListById);
         })
     }
 }
 
-function initSearch(data,tagList, test){
-    const searchInput_elt = document.getElementById('search');
-    const searchInputErase_elt = document.getElementById('searchErase');
-    const submitSearchButton = document.getElementById('submitSearch');
-    searchInput_elt.addEventListener('keyup', (e)=>{
-        if(e.target.value.length>2){
-            getIdOfSelectedRecipe(data, tagList, test)
-        }else{
-                resetDisplayRecipe();
-            }
-        displayErase(searchInputErase_elt, e.target);
-    });
-    submitSearchButton.addEventListener('click', ()=>{
-        getIdOfSelectedRecipe(data, tagList, test);
-    })
-    searchInputErase_elt.addEventListener('click', (e)=>{
-        if(e.target.style.display === "block"){
-            searchInput_elt.value="";
-            e.target.style.display = "none";
-            searchInput_elt.focus();
-        }
-        getIdOfSelectedRecipe(data, tagList);
-    })
-}
-
 function init(){
-    const {tagList, mapIdKeys, mapKeyIds} = getRecipeCard(recipes);
+    const {tagList, mapIdKeys, mapKeyIds, tagListById} = getRecipeCard(recipes);
     showNumberOfRecipe();
     initSelect();
-    initTag(tagList, mapIdKeys);
-    initSearch(mapIdKeys, tagList, mapKeyIds);
+    initSearch(mapIdKeys, tagList, tagListById);
 }
 
 init();

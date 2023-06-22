@@ -25,6 +25,10 @@ function addIDToMap(mapElt, key, id){
 function removeAccents (str){
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');}
 
+  function tagFormat (str){
+    return removeAccents(str).replace(/[' ']/g,'')
+  }
+
 
 function addTagSelectElt(data, dataFormat,category){
     const selectContainer_elt = document.querySelector(`.${category}-select--list`);
@@ -40,14 +44,14 @@ export function getRecipeCard(recipes){
     let ingredientsList = new Set();
     let applianceList = new Set();
     let tagList = new Map(); 
+    let tagListById = {};
 
     let mapKeyIds = new Map();
     let mapIdKeys = {};
-    let rawData = {};
     for(const recipe of recipes){
+        let listOfTags = new Set();
         //Recipe
         const {id, image, name, ingredients, time, description, appliance, ustensils} = recipe;
-        rawData[id] = recipe;
         // Init Map
         let keysList = new Set();
         // Name Map
@@ -58,8 +62,8 @@ export function getRecipeCard(recipes){
         for(const data in ustensils){
             let key = ustensils[data].toLowerCase();
             ustensilsList.add(key);
-            addIDToMap(tagList, key, id); //
-
+            addIDToMap(tagList, key, id);
+            listOfTags.add(tagFormat(key));
             key = removeAccents(key).replace(/[.,()°']/g,' ').split(' ');
             key.forEach((e)=>{keysList.add(e)});
         }
@@ -67,7 +71,8 @@ export function getRecipeCard(recipes){
         let applianceFormat = appliance.toLowerCase();
         // MAP
         applianceList.add(applianceFormat);
-        addIDToMap(tagList, applianceFormat, id); //
+        addIDToMap(tagList, applianceFormat, id);
+        listOfTags.add(tagFormat(applianceFormat));
         applianceFormat = removeAccents(applianceFormat).split(' ')
         applianceFormat.forEach((e)=>{keysList.add(e)});
         // Description Map
@@ -115,7 +120,8 @@ export function getRecipeCard(recipes){
             // Map
             let ingredientFormat = ingredient.toLowerCase();
             ingredientsList.add(ingredientFormat);
-            addIDToMap(tagList,ingredientFormat,id); //
+            addIDToMap(tagList,ingredientFormat,id);
+            listOfTags.add(tagFormat(ingredientFormat));
             ingredientFormat = removeAccents(ingredientFormat).replace(/[.,()°']/g,' ').split(' ');
             ingredientFormat.forEach((e)=>{keysList.add(e)});
         }
@@ -139,6 +145,7 @@ export function getRecipeCard(recipes){
             addIDToMap(mapKeyIds, keysList[i], id);
         }
         mapIdKeys[id]=keysList.join(' ');
+        tagListById[id]=listOfTags;
 
     };
     
@@ -147,14 +154,14 @@ export function getRecipeCard(recipes){
     ingredientsList=Array.from(ingredientsList).sort((a,b)=>{return a.localeCompare(b);});
     applianceList=Array.from(applianceList).sort((a,b)=>{return a.localeCompare(b);});
     ustensilsList.forEach((e)=>{
-        addTagSelectElt(e, removeAccents(e).replace(/[' ']/g,''),"ustensiles");
+        addTagSelectElt(e, tagFormat(e),"ustensiles");
     });
     ingredientsList.forEach((e)=>{
-        addTagSelectElt(e, removeAccents(e).replace(/[' ']/g,''),"ingredients");
+        addTagSelectElt(e, tagFormat(e),"ingredients");
     });
     applianceList.forEach((e)=>{
-        addTagSelectElt(e, removeAccents(e).replace(/[' ']/g,''),"appareils");
+        addTagSelectElt(e, tagFormat(e),"appareils");
     });
 
-    return{tagList, mapIdKeys, mapKeyIds};
+    return{tagList, mapIdKeys, mapKeyIds, tagListById};
 }
