@@ -74,12 +74,16 @@
             scrollbar-width: thin;
             z-index: 1;
             & li{
+                display: none;
                 padding: 7px 16px 7px 16px; 
                 &::first-letter{
                     text-transform: capitalize;
                 }
                 &:focus, &:hover{
                     background-color: $color-quaternary;
+                }
+                &.filtered-item{
+                    display: block;
                 }
             }
         }
@@ -114,6 +118,8 @@
     background-size: 17px 17px;
     font-weight: 700;
 }
+
+
 
 .tag{
     display: flex;

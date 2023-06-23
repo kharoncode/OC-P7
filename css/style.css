@@ -30,7 +30,7 @@ ul {
 }
 
 .none {
-  display: none;
+  display: none !important;
 }
 
 /* COMPOSANTS */
@@ -176,6 +176,7 @@ ul {
   z-index: 1;
 }
 .btn-select-list li {
+  display: none;
   padding: 7px 16px 7px 16px;
 }
 .btn-select-list li::first-letter {
@@ -183,6 +184,9 @@ ul {
 }
 .btn-select-list li:focus, .btn-select-list li:hover {
   background-color: #FFD15B;
+}
+.btn-select-list li.filtered-item {
+  display: block;
 }
 .btn-tag {
   display: none;

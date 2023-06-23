@@ -1,17 +1,6 @@
 // DOM Elements
 const recipesContainer_elt = document.querySelector('.recipesContainer');
 
-/* function addIDToMap(mapElt, key, id){
-    key=key.toLowerCase();
-    if(mapElt.has(`${key}`)){
-        let temp = mapElt.get(`${key}`);
-        temp.push(`${id}`);
-        mapElt.set(`${key}`,temp)
-    }else{
-        mapElt.set(`${key}`,[`${id}`])
-    }
-} */
-
 function addIDToMap(mapElt, key, id){
     if(mapElt.has(key)){
         let temp = mapElt.get(key);
@@ -33,7 +22,7 @@ function removeAccents (str){
 function addTagSelectElt(data, dataFormat,category){
     const selectContainer_elt = document.querySelector(`.${category}-select--list`);
     const tagContainer_elt = document.querySelector('.tagsContainer');
-    let select_html = `<li id="${dataFormat}-select" class="${category}-item select-item">${data}</li>`;
+    let select_html = `<li id="${dataFormat}-select" class="${category}-item select-item filtered-item">${data}</li>`;
     selectContainer_elt.insertAdjacentHTML('beforeend' , select_html);
     let tag_html = `<div id="${dataFormat}-tag" class="btn btn-tag"><p>${data}</p><img id="${dataFormat}-tag-erase" src="assets/icones/erase_tag.svg" alt="Effacer"></div>`;
     tagContainer_elt.insertAdjacentHTML('beforeend' , tag_html);

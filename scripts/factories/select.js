@@ -58,8 +58,8 @@ export function initSelect(){
         const selectArrow_elt = document.getElementById(`${names[i]}Arrow`);
         const input_elt = document.getElementById(`${names[i]}`);
         const inputErase_elt = document.getElementById(`${names[i]}Erase`);
-        const item_elts = document.querySelectorAll(`.${names[i]}-item`);
         input_elt.addEventListener('keyup', (e)=>{
+            const item_elts = document.querySelectorAll(`.${names[i]}-item`);
             displayErase(inputErase_elt, e.target);
             showResultSelect(e.target.value, item_elts);
         });
