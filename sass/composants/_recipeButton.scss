@@ -10,7 +10,6 @@
         background-color: #fff;
         margin-right: 30px;
         flex-direction: column;
-        overflow: hidden;
         transition-duration: 0.3s;
         z-index: 1;
 
@@ -32,6 +31,8 @@
 
         &-search{
             position: relative;
+            width: 163px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
             & input{
@@ -64,7 +65,8 @@
         }
 
         &-list{
-            height: 324px;
+            max-height: 324px;
+            border-radius: 0 0 5px 5px;
             margin-top: 15px;
             background-color: #fff;
             display: flex;
@@ -107,6 +109,16 @@
             filter: $filter-primary;
         }
     }
+}
+
+.dropdown-menu{
+    position: absolute;
+    display: none;
+    top: 46px;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+    padding: 9px 0 10px 0;
 }
 
 .selected{

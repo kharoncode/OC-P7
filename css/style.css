@@ -113,7 +113,6 @@ ul {
   background-color: #fff;
   margin-right: 30px;
   flex-direction: column;
-  overflow: hidden;
   transition-duration: 0.3s;
   z-index: 1;
 }
@@ -134,6 +133,8 @@ ul {
 }
 .btn-select-search {
   position: relative;
+  width: 163px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
 }
@@ -165,7 +166,8 @@ ul {
   filter: invert(100%) sepia(0%) saturate(3816%) hue-rotate(112deg) brightness(114%) contrast(55%);
 }
 .btn-select-list {
-  height: 324px;
+  max-height: 324px;
+  border-radius: 0 0 5px 5px;
   margin-top: 15px;
   background-color: #fff;
   display: flex;
@@ -205,6 +207,16 @@ ul {
   height: 12px;
   width: 12px;
   filter: invert(7%) sepia(0%) saturate(4%) hue-rotate(76deg) brightness(107%) contrast(95%);
+}
+
+.dropdown-menu {
+  position: absolute;
+  display: none;
+  top: 46px;
+  background-color: #fff;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  padding: 9px 0 10px 0;
 }
 
 .selected {

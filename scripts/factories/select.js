@@ -1,12 +1,11 @@
 // SELECT
 function openCloseSelect(container, e){
-    if(container.getAttribute("open") === "true"){
-            container.style.height = "53px"
-            container.setAttribute('open','false');
+    let display = window.getComputedStyle(container).display
+    if(display === "none"){
+            container.style.display = "block"
             e.style.transform = "initial";
-    } else if(container.getAttribute("open")==="false"){
-            container.style.height = "324px"
-            container.setAttribute('open','true');
+    } else if(display === "block"){
+            container.style.display = "none";
             e.style.transform = "rotateX(180deg";
     }
 }

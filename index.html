@@ -23,38 +23,44 @@
         <main>
             <nav class="recipe-filter">
                 <div class="recipe-filter--select">
-                    <div class="btn btn-select ingredients-select" open="false">
+                    <div class="btn btn-select">
                         <div class="btn-select-titre">
                             <p>Ingrédients</p><img id="ingredientsArrow" src="assets/icones/vector_down.svg" alt="">
                         </div>
-                        <div class="btn-select-search">
-                            <input id="ingredients" type="search" class="select-search--input">
-                            <img id="ingredientsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
-                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        <div class="dropdown-menu ingredients-select">
+                            <div class="btn-select-search">
+                                <input id="ingredients" type="search" class="select-search--input">
+                                <img id="ingredientsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                                <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                            </div>
+                            <ul class="btn-select-list ingredients-select--list"></ul>
                         </div>
-                        <ul class="btn-select-list ingredients-select--list"></ul>
                     </div>
-                    <div class="btn btn-select appareils-select" open="false">
+                    <div class="btn btn-select">
                         <div class="btn-select-titre">
                             <p>Appareils</p><img id="appareilsArrow" src="assets/icones/vector_down.svg" alt="">
                         </div>
-                        <div class="btn-select-search">
-                            <input id="appareils" type="search" class="select-search--input">
-                            <img id="appareilsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
-                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        <div class="dropdown-menu appareils-select">
+                            <div class="btn-select-search">
+                                <input id="appareils" type="search" class="select-search--input">
+                                <img id="appareilsErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                                <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                            </div>
+                            <ul class="btn-select-list appareils-select--list"></ul>
                         </div>
-                        <ul class="btn-select-list appareils-select--list"></ul>
                     </div>
-                    <div class="btn btn-select ustensiles-select" open="false">
+                    <div class="btn btn-select">
                         <div class="btn-select-titre">
                             <p>Ustensiles</p><img id="ustensilesArrow" src="assets/icones/vector_down.svg" alt="">
                         </div>
-                        <div class="btn-select-search">
-                            <input id="ustensiles" type="search" class="select-search--input">
-                            <img id="ustensilesErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
-                            <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                        <div class="dropdown-menu ustensiles-select">
+                            <div class="btn-select-search">
+                                <input id="ustensiles" type="search" class="select-search--input">
+                                <img id="ustensilesErase" src="assets/icones/erase.svg" alt="Effacer" class="select-search--erase">
+                                <img src="assets/icones/magnifying-glass-solid.svg" alt="" class="select-search--glass">
+                            </div>
+                            <ul class="btn-select-list ustensiles-select--list"></ul>
                         </div>
-                        <ul class="btn-select-list ustensiles-select--list"></ul>
                     </div>
                 </div>
                 <div class="recipe-filter--result">Recette</div>
