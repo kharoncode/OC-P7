@@ -3,10 +3,10 @@ function openCloseSelect(container, e){
     let display = window.getComputedStyle(container).display
     if(display === "none"){
             container.style.display = "block"
-            e.style.transform = "initial";
+            e.style.transform = "rotateX(180deg)";
     } else if(display === "block"){
             container.style.display = "none";
-            e.style.transform = "rotateX(180deg";
+            e.style.transform = "initial";
     }
 }
 

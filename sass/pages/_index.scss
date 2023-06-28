@@ -19,6 +19,12 @@ header {
         width: 220px;
         top: 55px;
         left: 69px;
+        @media only screen and (max-width: 827px){
+            position: initial;
+            top: initial;
+            left: initial;
+            padding: 20px 0 25px 0;
+        }
     }
 
     & p{
@@ -32,6 +38,9 @@ header {
         line-height: 1.5em;
         color: $color-quaternary;
         text-transform: uppercase;
+        @media only screen and (max-width: 827px){
+            font-size: 2.5em;
+        }
     }
 
     & nav{
@@ -68,7 +77,6 @@ header {
             justify-content: center;
             align-items: center;
             transition-duration: 0.3s;
-
             &:hover{
                 background-color: $color-quaternary;
                 transition-duration: 0.3s;
@@ -105,21 +113,36 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @media only screen and (max-width: 1011px){
+        padding: 50px 10px 102px 10px;
+    }
 }
 
 .recipe-filter{
     display: flex;
     justify-content: space-between;
+    @media only screen and (max-width: 1070px){
+        flex-direction: column-reverse;
+        align-items: center;
+    }
     &--select{
         height: 56px;
         display: flex;
         justify-content: space-between;
         width: 100%;
         max-width: 750px;
+        @media only screen and (max-width: 827px){
+            flex-direction: column;
+            align-items: center;
+            height: initial;
+        }
     }
     &--result{
         font-size: 1.3em;
         font-family: $titre-font;
+        @media only screen and (max-width: 1070px){
+            padding-bottom: 10px;
+        }
     }
     
 }

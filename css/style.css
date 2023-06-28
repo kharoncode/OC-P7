@@ -111,18 +111,24 @@ ul {
   width: 195px;
   height: 53px;
   background-color: #fff;
-  margin-right: 30px;
+  /* margin-right: 30px; */
   flex-direction: column;
   transition-duration: 0.3s;
   z-index: 1;
 }
+@media only screen and (max-width: 827px) {
+  .btn-select {
+    margin-bottom: 10px;
+    height: initial;
+    width: 280px;
+  }
+}
 .btn-select-titre {
+  width: 100%;
   display: flex;
-  align-items: center;
-  padding-bottom: 14px;
+  justify-content: space-around;
 }
 .btn-select-titre p {
-  padding-right: 50px;
   font-weight: 500;
 }
 .btn-select-titre img {
@@ -177,6 +183,12 @@ ul {
   scrollbar-width: thin;
   z-index: 1;
 }
+@media only screen and (max-width: 827px) {
+  .btn-select-list {
+    max-height: 250px;
+    z-index: initial;
+  }
+}
 .btn-select-list li {
   display: none;
   padding: 7px 16px 7px 16px;
@@ -217,6 +229,14 @@ ul {
   width: 100%;
   border-radius: 0 0 5px 5px;
   padding: 9px 0 10px 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+@media only screen and (max-width: 827px) {
+  .dropdown-menu {
+    position: initial;
+    top: initial;
+    box-shadow: initial;
+  }
 }
 
 .selected {
@@ -227,6 +247,11 @@ ul {
   background-position-y: center;
   background-size: 17px 17px;
   font-weight: 700;
+}
+@media only screen and (max-width: 827px) {
+  .selected {
+    background-position-x: 250px;
+  }
 }
 
 .tag {
@@ -256,6 +281,14 @@ header img.logo {
   top: 55px;
   left: 69px;
 }
+@media only screen and (max-width: 827px) {
+  header img.logo {
+    position: initial;
+    top: initial;
+    left: initial;
+    padding: 20px 0 25px 0;
+  }
+}
 header p {
   display: flex;
   text-align: center;
@@ -267,6 +300,11 @@ header p {
   line-height: 1.5em;
   color: #FFD15B;
   text-transform: uppercase;
+}
+@media only screen and (max-width: 827px) {
+  header p {
+    font-size: 2.5em;
+  }
 }
 header nav {
   position: relative;
@@ -337,10 +375,21 @@ main {
   flex-direction: column;
   justify-content: center;
 }
+@media only screen and (max-width: 1011px) {
+  main {
+    padding: 50px 10px 102px 10px;
+  }
+}
 
 .recipe-filter {
   display: flex;
   justify-content: space-between;
+}
+@media only screen and (max-width: 1070px) {
+  .recipe-filter {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 .recipe-filter--select {
   height: 56px;
@@ -349,9 +398,21 @@ main {
   width: 100%;
   max-width: 750px;
 }
+@media only screen and (max-width: 827px) {
+  .recipe-filter--select {
+    flex-direction: column;
+    align-items: center;
+    height: initial;
+  }
+}
 .recipe-filter--result {
   font-size: 1.3em;
   font-family: "Anton", sans-serif;
+}
+@media only screen and (max-width: 1070px) {
+  .recipe-filter--result {
+    padding-bottom: 10px;
+  }
 }
 
 .tagsContainer {
