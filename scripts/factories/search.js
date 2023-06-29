@@ -4,7 +4,6 @@ function returnRecipeID(value, data){
     for(const id in data){
         if(data[id].includes(value)){
             recipeSearchList.add(id);
-            continue;
         }
     }
     return recipeSearchList;
@@ -27,7 +26,6 @@ export function filtre(values, data){
             return ids;
         }else{
             data = returnNewDataAfterSearch(ids,data);
-            continue;
         }
     }
 }
