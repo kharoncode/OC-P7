@@ -192,6 +192,7 @@ ul {
 .btn-select-list li {
   display: none;
   padding: 7px 16px 7px 16px;
+  order: 2;
 }
 .btn-select-list li::first-letter {
   text-transform: capitalize;
@@ -201,6 +202,21 @@ ul {
 }
 .btn-select-list li.filtered-item {
   display: block;
+}
+.btn-select-list li.filtered-item.selected {
+  background-color: #FFD15B;
+  background-image: url("../assets/icones/erase_list.svg");
+  background-repeat: no-repeat;
+  background-position-x: 158px;
+  background-position-y: center;
+  background-size: 17px 17px;
+  font-weight: 700;
+  order: 1;
+}
+@media only screen and (max-width: 827px) {
+  .btn-select-list li.filtered-item.selected {
+    background-position-x: 250px;
+  }
 }
 .btn-tag {
   display: none;
@@ -236,21 +252,6 @@ ul {
     position: initial;
     top: initial;
     box-shadow: initial;
-  }
-}
-
-.selected {
-  background-color: #FFD15B;
-  background-image: url("../assets/icones/erase_list.svg");
-  background-repeat: no-repeat;
-  background-position-x: 158px;
-  background-position-y: center;
-  background-size: 17px 17px;
-  font-weight: 700;
-}
-@media only screen and (max-width: 827px) {
-  .selected {
-    background-position-x: 250px;
   }
 }
 

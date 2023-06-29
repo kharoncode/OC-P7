@@ -50,17 +50,17 @@ function getIdOfSelectedRecipe(data, tagList){
     const selectedRecipes_search = filtre(valueArray, data);
 
     // TEST
-    /* console.time("testList")
+    /* console.time("filtre : id-keys")
     for(let i=0; i<10000; i++){
-        const testList = filtre(valueArray, test);
+        const testList = filtre(valueArray, data);
     }
-    console.timeEnd("testList")
+    console.timeEnd("filtre : id-keys")
 
-    console.time("testMap")
+    console.time("filtreMap : key-ids")
     for(let i=0; i<10000; i++){
         const testMap = filtreMap(valueArray, test);
     }
-    console.timeEnd("testMap")*/
+    console.timeEnd("filtreMap : key-ids") */
 
     // RESULT
     if(tag_elts.length!==0){
@@ -150,7 +150,7 @@ function init(){
     const {tagList, mapIdKeys, mapKeyIds, tagListById} = getRecipeCard(recipes);
     showNumberOfRecipe();
     initSelect();
-    initSearch(mapIdKeys, tagList, tagListById);
+    initSearch(mapIdKeys, tagList, tagListById, mapKeyIds);
 }
 
 init();
