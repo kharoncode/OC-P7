@@ -1,6 +1,14 @@
 // SELECT
 function openCloseSelect(container, e){
     let display = window.getComputedStyle(container).display
+    const select_elts = document.querySelectorAll('.dropdown-menu');
+    select_elts.forEach((e)=>{
+        e.style.display = "none";
+    })
+    const selectArrow_elts = document.querySelectorAll('.selectArrow');
+    selectArrow_elts.forEach((e)=>{
+        e.style.transform = "initial";
+    })
     if(display === "none"){
             container.style.display = "block"
             e.style.transform = "rotateX(180deg)";

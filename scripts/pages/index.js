@@ -150,7 +150,7 @@ function init(){
     const {tagList, mapIdKeys, mapKeyIds, tagListById} = getRecipeCard(recipes);
     showNumberOfRecipe();
     initSelect();
-    initSearch(mapIdKeys, tagList, tagListById, mapKeyIds);
+    initSearch(mapIdKeys, tagList, tagListById);
 }
 
 init();

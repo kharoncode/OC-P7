@@ -20,10 +20,10 @@ export function returnNewDataAfterSearch(ids,data){
 }
 
 // Search with mapIdKeys
-export function filtre(value, data){
-    for(let i=0; i<value.length; i++){
-        let ids = returnRecipeID(value[i],data);
-        if(i===(value.length-1)){
+export function filtre(values, data){
+    for(let i=0; i<values.length; i++){
+        let ids = returnRecipeID(values[i],data);
+        if(i===(values.length-1)){
             return ids;
         }else{
             data = returnNewDataAfterSearch(ids,data);
