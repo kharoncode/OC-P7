@@ -173,10 +173,9 @@ ul {
 }
 .btn-select-list {
   max-height: 324px;
-  border-radius: 0 0 5px 5px;
-  margin-top: 15px;
   background-color: #fff;
   display: flex;
+  margin-top: 15px;
   flex-direction: column;
   width: 100%;
   overflow-y: scroll;
@@ -192,7 +191,7 @@ ul {
 .btn-select-list li {
   display: none;
   padding: 7px 16px 7px 16px;
-  order: 2;
+  order: 3;
 }
 .btn-select-list li::first-letter {
   text-transform: capitalize;
@@ -219,7 +218,7 @@ ul {
   }
 }
 .btn-tag {
-  display: none;
+  display: flex;
   padding: 17px 16px 17px 16px;
   height: 53px;
   background-color: #FFD15B;
@@ -255,8 +254,13 @@ ul {
   }
 }
 
-.tag {
-  display: flex;
+.separator {
+  display: flex !important;
+  height: 15px;
+  order: 2;
+}
+.separator:hover {
+  background-color: initial !important;
 }
 
 /* PAGES */

@@ -1,5 +1,5 @@
 // SELECT
-function openCloseSelect(container, e){
+export function openCloseSelect(container, e){
     let display = window.getComputedStyle(container).display
     const select_elts = document.querySelectorAll('.dropdown-menu');
     select_elts.forEach((e)=>{
@@ -28,7 +28,7 @@ export function displayErase(erase_elt, input_elt){
 }
 
 // SEARCH
-function showResultSelect(value, items){
+export function showResultSelect(value, items){
     value=value.toLowerCase();
     for(let i=0; i<items.length; i++){
         if(value.length>2){
@@ -46,52 +46,8 @@ function showResultSelect(value, items){
 }
 
 // TAG
-function addTag(element){
-    element.classList.add('selected');
-    let id = element.id.replace('select','tag');
-    document.getElementById(`${id}`).classList.add('tag');
-}
-function removeTag(element){
+export function removeTag(element){
     element.classList.remove('selected');
     let id = element.id.replace('select','tag');
-    document.getElementById(`${id}`).classList.remove('tag');
-}
-
-// INIT
-export function initSelect(){
-    const names = ["ingredients","appareils","ustensiles"];
-    for(let i=0; i<names.length; i++){
-        const select_elt = document.querySelector(`.${names[i]}-select`);
-        const selectArrow_elt = document.getElementById(`${names[i]}Arrow`);
-        const input_elt = document.getElementById(`${names[i]}`);
-        const inputErase_elt = document.getElementById(`${names[i]}Erase`);
-        input_elt.addEventListener('keyup', (e)=>{
-            const item_elts = document.querySelectorAll(`.${names[i]}-item`);
-            displayErase(inputErase_elt, e.target);
-            showResultSelect(e.target.value, item_elts);
-        });
-        selectArrow_elt.addEventListener('click', (e)=>{
-            openCloseSelect(select_elt, e.target)});
-        inputErase_elt.addEventListener('click', (e)=>{
-            if(e.target.style.display === "block"){
-                input_elt.value="";
-                e.target.style.display = "none";
-                const none_elts = document.querySelectorAll('.none');
-                for(let i=0; i<none_elts.length; i++){
-                    none_elts[i].classList.remove('none');
-                }
-                input_elt.focus()
-            }
-        })
-    }
-    const selectItem_elts = document.querySelectorAll(`.select-item`)
-    for(let i=0; i<selectItem_elts.length; i++){
-        selectItem_elts[i].addEventListener('click',(e)=>{
-            if(e.target.matches('.selected')){
-                removeTag(e.target);
-            }else{
-                addTag(e.target);
-            }
-        }
-    )}
+    document.getElementById(`${id}`).remove();
 }
