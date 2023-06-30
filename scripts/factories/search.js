@@ -52,5 +52,9 @@ export function filtreMap(value, data){
             })
         }
     }
-    return ids;
+    let result = new Set();
+    ids.forEach((e)=>{
+        result.add(`${e}`)
+    })
+    return result;
 }

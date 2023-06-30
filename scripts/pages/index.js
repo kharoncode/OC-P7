@@ -61,7 +61,7 @@ function addTag(element, data, tagList, tagListById){
 }
 
 // Main function who return the final list of ids
-function getIdOfSelectedRecipe(data, tagList){
+function getIdOfSelectedRecipe(data, tagList, test){
     let selectedRecipes_list = new Set();
     // TAG
     let selectedRecipes_tags = new Set();
@@ -117,24 +117,24 @@ function getIdOfSelectedRecipe(data, tagList){
 }
 
 // Initialisation
-function runSearch(data, tagList, tagListById){
-    const selectedRecipe_ids = getIdOfSelectedRecipe(data, tagList);
+function runSearch(data, tagList, tagListById, test){
+    const selectedRecipe_ids = getIdOfSelectedRecipe(data, tagList, test);
     displayRecipe(selectedRecipe_ids);
     filterSelectItemsAfterSearch(selectedRecipe_ids, tagListById);
 }
 
-function initSearch(data, tagList, tagListById){
+function initSearch(data, tagList, tagListById, test){
     const searchInput_elt = document.getElementById('search');
     const searchInputErase_elt = document.getElementById('searchErase');
     const submitSearchButton = document.getElementById('submitSearch');
 
     // search
     searchInput_elt.addEventListener('keyup', (e)=>{
-        runSearch(data, tagList, tagListById);
+        runSearch(data, tagList, tagListById, test);
         displayErase(searchInputErase_elt, e.target);
     });
     submitSearchButton.addEventListener('click', ()=>{
-        runSearch(data, tagList, tagListById);
+        runSearch(data, tagList, tagListById, test);
     })
     searchInputErase_elt.addEventListener('click', (e)=>{
         if(e.target.style.display === "block"){
@@ -142,13 +142,13 @@ function initSearch(data, tagList, tagListById){
             e.target.style.display = "none";
             searchInput_elt.focus();
         }
-        runSearch(data, tagList, tagListById);
+        runSearch(data, tagList, tagListById, test);
     })
     // tag
     const list_elts = document.querySelectorAll(".btn-select-list");
     for (let i=0; i<list_elts.length; i++){
         list_elts[i].addEventListener('click',()=>{
-            runSearch(data, tagList, tagListById);
+            runSearch(data, tagList, tagListById, test);
         });
     }
 }
@@ -195,7 +195,7 @@ function init(){
     const {tagList, mapIdKeys, mapKeyIds, tagListById} = getRecipeCard(recipes);
     showNumberOfRecipe();
     initSelect(mapIdKeys, tagList, tagListById);
-    initSearch(mapIdKeys, tagList, tagListById);
+    initSearch(mapIdKeys, tagList, tagListById, mapKeyIds);
 }
 
 init();
