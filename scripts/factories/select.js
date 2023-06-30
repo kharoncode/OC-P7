@@ -29,10 +29,10 @@ export function displayErase(erase_elt, input_elt){
 
 // SEARCH
 export function showResultSelect(value, items){
-    value=value.toLowerCase();
+    value=value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     for(let i=0; i<items.length; i++){
         if(value.length>2){
-            if(items[i].textContent.includes(value)){
+            if(items[i].id.includes(value)){
             items[i].classList.remove('none');
             }else{
                 items[i].classList.add('none');

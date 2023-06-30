@@ -116,13 +116,12 @@ function getIdOfSelectedRecipe(data, tagList){
     }
 }
 
-// Init
+// Initialisation
 function runSearch(data, tagList, tagListById){
     const selectedRecipe_ids = getIdOfSelectedRecipe(data, tagList);
     displayRecipe(selectedRecipe_ids);
     filterSelectItemsAfterSearch(selectedRecipe_ids, tagListById);
 }
-
 
 function initSearch(data, tagList, tagListById){
     const searchInput_elt = document.getElementById('search');

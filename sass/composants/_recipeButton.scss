@@ -78,6 +78,7 @@
             overflow-y: scroll;
             scrollbar-width: thin;
             z-index: 1;
+            overscroll-behavior: contain;
             @media only screen and (max-width: 827px){
                 max-height: 250px;
                 z-index: initial;
@@ -95,6 +96,7 @@
                 &.filtered-item{
                     display: block;
                     &.selected{
+                        padding-right: 41px;
                         background-color: $color-quaternary;
                         background-image: url('../assets/icones/erase_list.svg');
                         background-repeat: no-repeat;

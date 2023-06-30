@@ -19,7 +19,8 @@ function removeAccents (str){
   }
 
 
-function addSelectElt(data, dataFormat,category){
+function addSelectElt(data, category){
+    let dataFormat = tagFormat(data);
     const selectContainer_elt = document.querySelector(`.${category}-select--list`);
     let select_html = `<li id="${dataFormat}-select" class="${category}-item select-item filtered-item">${data}</li>`;
     selectContainer_elt.insertAdjacentHTML('beforeend' , select_html);
@@ -140,13 +141,13 @@ export function getRecipeCard(recipes){
     ingredientsList=Array.from(ingredientsList).sort((a,b)=>{return a.localeCompare(b);});
     applianceList=Array.from(applianceList).sort((a,b)=>{return a.localeCompare(b);});
     ustensilsList.forEach((e)=>{
-        addSelectElt(e, tagFormat(e),"ustensiles");
+        addSelectElt(e,"ustensiles");
     });
     ingredientsList.forEach((e)=>{
-        addSelectElt(e, tagFormat(e),"ingredients");
+        addSelectElt(e,"ingredients");
     });
     applianceList.forEach((e)=>{
-        addSelectElt(e, tagFormat(e),"appareils");
+        addSelectElt(e,"appareils");
     });
 
     return{tagList, mapIdKeys, mapKeyIds, tagListById};
