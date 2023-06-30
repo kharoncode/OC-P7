@@ -31,7 +31,7 @@ export function filtre(values, data){
 }
 
 // Search with mapKeyIds
-export function filtreMap(value, data){
+/* export function filtreMap(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
         let tempIds = new Set();
@@ -53,4 +53,4 @@ export function filtreMap(value, data){
         }
     }
     return ids;
-}
+} */
