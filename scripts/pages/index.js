@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, } from "../factories/recipe.js";
 import { displayErase, showResultSelect, removeTag, openCloseSelect } from "../factories/select.js";
-import { filtre, filtreMap } from "../factories/search.js";
+import { filtreMap } from "../factories/search.js";
 
 // Visual
 function showNumberOfRecipe(){
@@ -89,21 +89,6 @@ function getIdOfSelectedRecipe(data, tagList){
         valueArray = searchInput_elt.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     }
     const selectedRecipes_search = filtreMap(valueArray, data);
-    let test = selectedRecipes_search;
-    console.log(test)
-
-    // TEST
-    /* console.time("filtre : id-keys")
-    for(let i=0; i<10000; i++){
-        const testList = filtre(valueArray, data);
-    }
-    console.timeEnd("filtre : id-keys")
-
-    console.time("filtreMap : key-ids")
-    for(let i=0; i<10000; i++){
-        const testMap = filtreMap(valueArray, test);
-    }
-    console.timeEnd("filtreMap : key-ids") */
 
     // RESULT
     if(tag_elts.length!==0){
