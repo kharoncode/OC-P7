@@ -88,7 +88,9 @@ function getIdOfSelectedRecipe(data, tagList){
     if(searchInput_elt.value.length>2){
         valueArray = searchInput_elt.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     }
-    const selectedRecipes_search = filtre(valueArray, data);
+    const selectedRecipes_search = filtreMap(valueArray, data);
+    let test = selectedRecipes_search;
+    console.log(test)
 
     // TEST
     /* console.time("filtre : id-keys")
@@ -194,8 +196,8 @@ function initSelect(data, tagList, tagListById){
 function init(){
     const {tagList, mapIdKeys, mapKeyIds, tagListById} = getRecipeCard(recipes);
     showNumberOfRecipe();
-    initSelect(mapIdKeys, tagList, tagListById);
-    initSearch(mapIdKeys, tagList, tagListById);
+    initSelect(mapKeyIds, tagList, tagListById);
+    initSearch(mapKeyIds, tagList, tagListById);
 }
 
 init();
