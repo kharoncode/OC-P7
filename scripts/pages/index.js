@@ -1,7 +1,7 @@
 import { recipes } from "../utils/recipes.js";
 import { getRecipeCard, } from "../factories/recipe.js";
 import { displayErase, showResultSelect, removeTag, openCloseSelect } from "../factories/select.js";
-import { filtre } from "../factories/search.js";
+import { filter } from "../factories/search.js";
 
 // Visual
 function showNumberOfRecipe(){
@@ -88,7 +88,7 @@ function getIdOfSelectedRecipe(data, tagList){
     if(searchInput_elt.value.length>2){
         valueArray = searchInput_elt.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(" ").filter(n=>n.length>2 && isNaN(n));
     }
-    const selectedRecipes_search = filtre(valueArray, data);
+    const selectedRecipes_search = filter(valueArray, data);
 
     // RESULT
     if(tag_elts.length!==0){
