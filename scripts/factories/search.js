@@ -31,7 +31,7 @@ export function filtre(values, data){
 }
 
 // Search with mapKeyIds
-export function filtreMap(value, data){
+/* export function filtreMap(value, data){
     let ids = new Set();
     for(let i=0; i<value.length; i++){
         let tempIds = new Set();
@@ -43,6 +43,33 @@ export function filtreMap(value, data){
                     keyValue[1].forEach((id)=>{tempIds.add(id)});               
                 }
             }
+        }
+        if(i>0){
+            ids.forEach((id)=>{
+                if(!tempIds.has(id)){
+                    ids.delete(id);     
+                }
+            })
+        }
+    }
+    let result = new Set();
+    ids.forEach((e)=>{
+        result.add(`${e}`)
+    })
+    return result;
+} */
+
+// filtreMap with submit !
+export function filtreMap(value, data){
+    let ids = new Set();
+    for(let i=0; i<value.length; i++){
+        let tempIds = new Set();
+        if(Object.hasOwn(data, value[i])){
+            if(i===0){
+                data[`${value[i]}`].forEach((id)=>{ids.add(id)});                  
+            } else{
+                data[`${value[i]}`].forEach((id)=>{tempIds.add(id)});               
+            } 
         }
         if(i>0){
             ids.forEach((id)=>{

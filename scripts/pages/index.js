@@ -91,7 +91,17 @@ function getIdOfSelectedRecipe(data, tagList, test){
     const selectedRecipes_search = filtre(valueArray, data);
 
     // TEST
-    console.time("filtre : id-keys")
+    // PERF
+   /*  let count = 0;
+    var startTime = Date.now();
+    while ((Date.now() - startTime) < 1000) {
+        filtreMap(valueArray, test);
+        count++
+    }
+    console.log(`Perf = ${count}`) */
+
+    // TIME
+    /* console.time("filtre : id-keys")
     for(let i=0; i<10000; i++){
         const testList = filtre(valueArray, data);
     }
@@ -101,7 +111,7 @@ function getIdOfSelectedRecipe(data, tagList, test){
     for(let i=0; i<10000; i++){
         const testMap = filtreMap(valueArray, test);
     }
-    console.timeEnd("filtreMap : key-ids")
+    console.timeEnd("filtreMap : key-ids") */
 
     // RESULT
     if(tag_elts.length!==0){
